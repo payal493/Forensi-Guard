@@ -1,0 +1,103 @@
+{
+  "analysis_timestamp": "2026-02-01 01:05:40",
+  "analysis_type": "anomaly_analysis",
+  "severity_assessment": {
+    "severity_distribution": {
+      "CRITICAL": 0,
+      "HIGH": 0,
+      "MEDIUM": 13,
+      "LOW": 0
+    },
+    "total_anomalies": 13,
+    "critical_anomalies": 0,
+    "high_anomalies": 0
+  },
+  "total_anomalies": 13,
+  "anomalies_by_type": {
+    "timestamp_gap": 13
+  },
+  "anomalies_by_source": {
+    "SMS": 9,
+    "CALL": 4
+  },
+  "findings": [
+    {
+      "timestamp": "2026-02-01 01:05:40",
+      "source": "SMS",
+      "type": "timestamp_gap",
+      "details": "Gap of 2 days detected between 2020-01-30 02:45:33 and 2020-02-01 06:30:03"
+    },
+    {
+      "timestamp": "2026-02-01 01:05:40",
+      "source": "SMS",
+      "type": "timestamp_gap",
+      "details": "Gap of 2 days detected between 2020-02-01 06:34:12 and 2020-02-04 00:48:46"
+    },
+    {
+      "timestamp": "2026-02-01 01:05:40",
+      "source": "SMS",
+      "type": "timestamp_gap",
+      "details": "Gap of 1 days detected between 2020-02-04 00:48:46 and 2020-02-05 21:52:21"
+    },
+    {
+      "timestamp": "2026-02-01 01:05:40",
+      "source": "SMS",
+      "type": "timestamp_gap",
+      "details": "Gap of 1 days detected between 2020-02-05 21:52:21 and 2020-02-07 13:45:59"
+    },
+    {
+      "timestamp": "2026-02-01 01:05:40",
+      "source": "SMS",
+      "type": "timestamp_gap",
+      "details": "Gap of 1 days detected between 2020-02-07 13:45:59 and 2020-02-08 23:47:01"
+    },
+    {
+      "timestamp": "2026-02-01 01:05:40",
+      "source": "SMS",
+      "type": "timestamp_gap",
+      "details": "Gap of 1 days detected between 2020-02-08 23:47:01 and 2020-02-10 00:11:42"
+    },
+    {
+      "timestamp": "2026-02-01 01:05:40",
+      "source": "SMS",
+      "type": "timestamp_gap",
+      "details": "Gap of 1 days detected between 2020-02-10 00:11:42 and 2020-02-11 23:32:40"
+    },
+    {
+      "timestamp": "2026-02-01 01:05:40",
+      "source": "SMS",
+      "type": "timestamp_gap",
+      "details": "Gap of 1 days detected between 2020-02-11 23:32:40 and 2020-02-13 00:42:18"
+    },
+    {
+      "timestamp": "2026-02-01 01:05:40",
+      "source": "SMS",
+      "type": "timestamp_gap",
+      "details": "Gap of 1 days detected between 2020-02-13 00:42:18 and 2020-02-14 02:42:24"
+    },
+    {
+      "timestamp": "2026-02-01 01:05:40",
+      "source": "CALL",
+      "type": "timestamp_gap",
+      "details": "Gap of 2 days detected between 2020-02-02 00:58:00 and 2020-02-04 01:02:22"
+    },
+    {
+      "timestamp": "2026-02-01 01:05:40",
+      "source": "CALL",
+      "type": "timestamp_gap",
+      "details": "Gap of 5 days detected between 2020-02-04 01:02:22 and 2020-02-09 01:44:56"
+    },
+    {
+      "timestamp": "2026-02-01 01:05:40",
+      "source": "CALL",
+      "type": "timestamp_gap",
+      "details": "Gap of 3 days detected between 2020-02-09 01:44:56 and 2020-02-12 21:07:29"
+    },
+    {
+      "timestamp": "2026-02-01 01:05:40",
+      "source": "CALL",
+      "type": "timestamp_gap",
+      "details": "Gap of 1 days detected between 2020-02-13 06:23:33 and 2020-02-14 06:59:01"
+    }
+  ]
+}

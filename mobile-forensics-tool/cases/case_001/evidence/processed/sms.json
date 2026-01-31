@@ -1,0 +1,20 @@
+[
+  {
+    "timestamp": "2024-01-15 09:30:22",
+    "source": "SMS",
+    "type": "incoming",
+    "details": "Received SMS from +91XXXXXXXXXX: 'Meeting at 3pm confirmed'"
+  },
+  {
+    "timestamp": "2024-01-15 10:15:45",
+    "source": "SMS", 
+    "type": "outgoing",
+    "details": "Sent SMS to +91XXXXXXXXXX: 'On my way, traffic delay'"
+  },
+  {
+    "timestamp": "2024-01-15 14:22:18",
+    "source": "SMS",
+    "type": "incoming", 
+    "details": "Received SMS from +91XXXXXXXXXX: 'Package delivered to locker'"
+  }
+]

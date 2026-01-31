@@ -1,0 +1,20 @@
+[
+  {
+    "timestamp": "2024-01-15 06:00:00",
+    "source": "APP",
+    "type": "installed",
+    "details": "App installed: SecureMessenger v2.1.0 - Source: Google Play Store"
+  },
+  {
+    "timestamp": "2024-01-15 13:22:15",
+    "source": "APP",
+    "type": "used", 
+    "details": "App launched: FileExplorer Pro - Duration: 8m 45s"
+  },
+  {
+    "timestamp": "2024-01-15 20:15:30",
+    "source": "APP",
+    "type": "data_modified",
+    "details": "App data modified: VPNService - Configuration updated"
+  }
+]

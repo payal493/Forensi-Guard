@@ -1,0 +1,86 @@
+[
+  {
+    "timestamp": "2024-01-15 06:00:00",
+    "source": "APP",
+    "type": "installed",
+    "details": "App installed: SecureMessenger v2.1.0 - Source: Google Play Store",
+    "timeline_order": 1
+  },
+  {
+    "timestamp": "2024-01-15 07:15:30",
+    "source": "MEDIA",
+    "type": "created",
+    "details": "Photo captured: IMG_20240115_071530.jpg - Location: Office Building",
+    "timeline_order": 2
+  },
+  {
+    "timestamp": "2024-01-15 08:45:12",
+    "source": "CALL",
+    "type": "incoming",
+    "details": "Incoming call from +91XXXXXXXXXX - Duration: 5m 23s",
+    "timeline_order": 3
+  },
+  {
+    "timestamp": "2024-01-15 09:30:22",
+    "source": "SMS",
+    "type": "incoming",
+    "details": "Received SMS from +91XXXXXXXXXX: 'Meeting at 3pm confirmed'",
+    "timeline_order": 4
+  },
+  {
+    "timestamp": "2024-01-15 10:15:45",
+    "source": "SMS",
+    "type": "outgoing",
+    "details": "Sent SMS to +91XXXXXXXXXX: 'On my way, traffic delay'",
+    "timeline_order": 5
+  },
+  {
+    "timestamp": "2024-01-15 11:30:45",
+    "source": "CALL",
+    "type": "outgoing",
+    "details": "Outgoing call to +91XXXXXXXXXX - Duration: 12m 15s",
+    "timeline_order": 6
+  },
+  {
+    "timestamp": "2024-01-15 12:45:18",
+    "source": "MEDIA",
+    "type": "created",
+    "details": "Video recorded: VID_20240115_124518.mp4 - Duration: 2m 34s",
+    "timeline_order": 7
+  },
+  {
+    "timestamp": "2024-01-15 13:22:15",
+    "source": "APP",
+    "type": "used",
+    "details": "App launched: FileExplorer Pro - Duration: 8m 45s",
+    "timeline_order": 8
+  },
+  {
+    "timestamp": "2024-01-15 14:22:18",
+    "source": "SMS",
+    "type": "incoming",
+    "details": "Received SMS from +91XXXXXXXXXX: 'Package delivered to locker'",
+    "timeline_order": 9
+  },
+  {
+    "timestamp": "2024-01-15 16:20:33",
+    "source": "CALL",
+    "type": "incoming",
+    "details": "Missed call from +91XXXXXXXXXX - No answer",
+    "timeline_order": 10
+  },
+  {
+    "timestamp": "2024-01-15 18:30:45",
+    "source": "MEDIA",
+    "type": "deleted",
+    "details": "File deleted: Screenshot_20240114.png - Secure deletion detected",
+    "timeline_order": 11
+  },
+  {
+    "timestamp": "2024-01-15 20:15:30",
+    "source": "APP",
+    "type": "data_modified",
+    "details": "App data modified: VPNService - Configuration updated",
+    "timeline_order": 12
+  }
+]

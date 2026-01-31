@@ -1,0 +1,45 @@
+MOBILE DIGITAL FORENSICS INVESTIGATION REPORT
+==================================================
+Case ID: MF-CASE-001
+Report Generated (UTC): 2026-01-31T11:27:32.762423+00:00
+Dataset Used: NIST CFReDS Android
+Tool: Mobile Forensics Investigation Tool
+
+EVIDENCE INTEGRITY VERIFICATION
+--------------------------------------------------
+Hash Algorithm: SHA-256
+Total Evidence Files Hashed: 3
+
+- File Name: calllog.db
+  Relative Path: calllog.db
+  Size (bytes): 26
+  SHA-256: d4583655171d2874611b00481427f2441718197cb3780e2f35e283b1813fd58f
+
+- File Name: image1.jpg
+  Relative Path: image1.jpg
+  Size (bytes): 24
+  SHA-256: 05bbef3df8e11110be4e111e974987bf569a55fc7f1dedc49aa82f32f082ca04
+
+- File Name: mmssms.db
+  Relative Path: mmssms.db
+  Size (bytes): 19
+  SHA-256: 094b18eb52dbf3dcf5586331357ce1f6fadae167678acebae4dfd076c9355b61
+
+ANALYSIS FINDINGS
+--------------------------------------------------
+1. Suspicious Call Activity
+   Repeated outgoing calls detected between 02:00 AM and 03:30 AM
+
+2. Malware Indicator
+   APK file detected outside system directory
+
+TIMELINE OVERVIEW
+--------------------------------------------------
+[2026-01-30 02:15:00] CALL - Outgoing call to +91XXXXXXXXXX
+[2026-01-30 02:45:00] SMS - SMS sent to unknown contact
+
+CONCLUSION
+--------------------------------------------------
+Evidence integrity was preserved using SHA-256 hashing.
+All findings are based on rule-based, explainable analysis.
+This report represents the final forensic output of the investigation.

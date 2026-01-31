@@ -1,0 +1,86 @@
+[
+  {
+    "timestamp": "2020-01-31 20:46:36",
+    "source": "CALL",
+    "type": "missed",
+    "details": "Missed call from Unknown (Unknown) - Duration: 0s"
+  },
+  {
+    "timestamp": "2020-01-31 23:37:50",
+    "source": "CALL",
+    "type": "missed",
+    "details": "Missed call from Unknown (Unknown) - Duration: 0s"
+  },
+  {
+    "timestamp": "2020-02-01 01:51:55",
+    "source": "CALL",
+    "type": "missed",
+    "details": "Missed call from Unknown (Unknown) - Duration: 0s"
+  },
+  {
+    "timestamp": "2020-02-02 00:58:00",
+    "source": "CALL",
+    "type": "missed",
+    "details": "Missed call from Unknown (Unknown) - Duration: 0s"
+  },
+  {
+    "timestamp": "2020-02-04 01:02:22",
+    "source": "CALL",
+    "type": "missed",
+    "details": "Missed call from Unknown (Unknown) - Duration: 0s"
+  },
+  {
+    "timestamp": "2020-02-09 01:44:56",
+    "source": "CALL",
+    "type": "missed",
+    "details": "Missed call from Unknown (+332629243087) - Duration: 0s"
+  },
+  {
+    "timestamp": "2020-02-12 21:07:29",
+    "source": "CALL",
+    "type": "missed",
+    "details": "Missed call from Unknown (+19195121037) - Duration: 0s"
+  },
+  {
+    "timestamp": "2020-02-12 21:08:21",
+    "source": "CALL",
+    "type": "unknown",
+    "details": "Unknown call to Unknown (+19195121037) - Duration: 0m 3s"
+  },
+  {
+    "timestamp": "2020-02-13 06:22:44",
+    "source": "CALL",
+    "type": "missed",
+    "details": "Missed call from Unknown (+15755863247) - Duration: 0s"
+  },
+  {
+    "timestamp": "2020-02-13 06:23:33",
+    "source": "CALL",
+    "type": "unknown",
+    "details": "Unknown call to Unknown (+15755863247) - Duration: 0m 3s"
+  },
+  {
+    "timestamp": "2020-02-14 06:59:01",
+    "source": "CALL",
+    "type": "outgoing",
+    "details": "Outgoing call to Josh Hickman (9195790479) - Duration: 0m 11s"
+  },
+  {
+    "timestamp": "2020-02-14 07:00:24",
+    "source": "CALL",
+    "type": "incoming",
+    "details": "Incoming call from Josh Hickman (+19195790479) - Duration: 1m 5s"
+  },
+  {
+    "timestamp": "2020-02-14 18:35:57",
+    "source": "CALL",
+    "type": "outgoing",
+    "details": "Outgoing call to Josh Hickman (9195790479) - Duration: 1m 26s"
+  },
+  {
+    "timestamp": "2020-02-14 20:11:18",
+    "source": "CALL",
+    "type": "incoming",
+    "details": "Incoming call from Josh Hickman (9195790479) - Duration: 1m 31s"
+  }
+]

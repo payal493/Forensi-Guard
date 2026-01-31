@@ -1,0 +1,36 @@
+{
+  "integration_note": "Dummy data normalized for integration testing. Replaced later with real CFReDS outputs.",
+  "suspicious_behaviour": [
+    {
+      "pattern": "High frequency communication",
+      "description": "15+ messages exchanged with same contact within 2 hours",
+      "risk_level": "medium",
+      "evidence_references": ["sms.json:1", "sms.json:2"]
+    },
+    {
+      "pattern": "Unusual activity hours", 
+      "description": "App usage detected between 2AM-4AM",
+      "risk_level": "low",
+      "evidence_references": ["apps.json:3"]
+    }
+  ],
+  "malware_indicators": [
+    {
+      "indicator": "Suspicious app permissions",
+      "description": "FileExplorer Pro requesting excessive storage and network access",
+      "confidence": "low",
+      "app_name": "FileExplorer Pro"
+    }
+  ],
+  "timestamp_anomalies": [
+    {
+      "type": "timeline_gap",
+      "description": "6 hour gap in activity from 14:22 to 20:15",
+      "duration_hours": 5.9,
+      "significance": "medium",
+      "start_time": "2024-01-15 14:22:18",
+      "end_time": "2024-01-15 20:15:30",
+      "context": "Gap between SMS and app activity"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "suspicion_level": "Suspicious",
+  "score": 2,
+  "reasons": [
+    "Timestamp anomalies detected (13 anomalies)",
+    "Late-night activity detected (00:00-04:00)"
+  ],
+  "classification_timestamp": "2026-02-01 01:07:46"
+}

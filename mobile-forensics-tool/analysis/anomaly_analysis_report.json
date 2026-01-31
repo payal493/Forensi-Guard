@@ -1,0 +1,19 @@
+{
+  "analysis_timestamp": "2026-02-01 01:04:00",
+  "analysis_type": "anomaly_analysis",
+  "severity_assessment": {
+    "severity_distribution": {
+      "CRITICAL": 0,
+      "HIGH": 0,
+      "MEDIUM": 0,
+      "LOW": 0
+    },
+    "total_anomalies": 0,
+    "critical_anomalies": 0,
+    "high_anomalies": 0
+  },
+  "total_anomalies": 0,
+  "anomalies_by_type": {},
+  "anomalies_by_source": {},
+  "findings": []
+}

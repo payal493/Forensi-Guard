@@ -1,0 +1,57 @@
+{
+  "preview_note": "PREVIEW STUB - This is a dummy report for integration testing only. Replace with real CFReDS outputs.",
+  "report_metadata": {
+    "generation_timestamp": "2024-01-15 21:20:00",
+    "tool_version": "mobile-forensics-tool v1.0",
+    "investigator": "Forensic Investigator",
+    "case_number": "CASE-001",
+    "evidence_source": "NIST CFReDS Android Dataset"
+  },
+  "evidence_integrity": {
+    "hash_verification_status": "VERIFIED",
+    "total_files_hashed": 12,
+    "integrity_score": 98.5
+  },
+  "timeline_summary": {
+    "total_events": 12,
+    "date_range": {
+      "start": "2024-01-15 06:00:00",
+      "end": "2024-01-15 20:15:30"
+    },
+    "sources_summary": {
+      "SMS": 3,
+      "CALL": 3,
+      "MEDIA": 3,
+      "APP": 3
+    }
+  },
+  "analysis_findings": {
+    "behaviour_analysis": {
+      "risk_level": "medium",
+      "suspicious_patterns": 2
+    },
+    "malware_analysis": {
+      "risk_level": "low",
+      "malware_indicators": 1
+    },
+    "anomaly_analysis": {
+      "risk_level": "low",
+      "temporal_anomalies": 1
+    }
+  },
+  "conclusions": {
+    "overall_risk_level": "MEDIUM",
+    "key_findings": [
+      "High frequency communication patterns detected",
+      "Unusual app usage during late hours",
+      "Secure file deletion activity observed",
+      "Timeline gaps requiring further investigation"
+    ],
+    "investigative_recommendations": [
+      "Analyze communication patterns with identified contacts",
+      "Investigate late-night app usage activities",
+      "Review secure deletion events for potential evidence spoliation",
+      "Examine 6-hour timeline gap for missing activities"
+    ]
+  }
+}

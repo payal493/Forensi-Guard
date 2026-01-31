@@ -1,0 +1,20 @@
+[
+  {
+    "timestamp": "2024-01-15 07:15:30",
+    "source": "MEDIA",
+    "type": "created",
+    "details": "Photo captured: IMG_20240115_071530.jpg - Location: Office Building"
+  },
+  {
+    "timestamp": "2024-01-15 12:45:18",
+    "source": "MEDIA", 
+    "type": "created",
+    "details": "Video recorded: VID_20240115_124518.mp4 - Duration: 2m 34s"
+  },
+  {
+    "timestamp": "2024-01-15 18:30:45",
+    "source": "MEDIA",
+    "type": "deleted", 
+    "details": "File deleted: Screenshot_20240114.png - Secure deletion detected"
+  }
+]

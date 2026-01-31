@@ -1,0 +1,211 @@
+{
+  "hash_generation_timestamp": "2026-02-01 01:00:46",
+  "hash_algorithm": "SHA-256",
+  "evidence_directory": "E:\\web dev\\SVNIT\\mobile-forensics-tool\\cases\\case_002\\evidence\\raw",
+  "total_files_processed": 29,
+  "hashes": [
+    {
+      "file_path": "sdcard\\WhatsApp\\Backups\\chatsettingsbackup.db.crypt1",
+      "file_name": "chatsettingsbackup.db.crypt1",
+      "file_size": 702,
+      "sha256_hash": "bbee1906b044448501d698f413dd946108a0d83eccb8596b2218c185d556eec1",
+      "hash_timestamp": "2026-02-01 01:00:44"
+    },
+    {
+      "file_path": "sdcard\\WhatsApp\\Backups\\statusranking.db.crypt1",
+      "file_name": "statusranking.db.crypt1",
+      "file_size": 1115,
+      "sha256_hash": "38d4f3ee284e3124f3314f7df40b8a47a9fe26d10d027c7e670e4ab7aa041926",
+      "hash_timestamp": "2026-02-01 01:00:44"
+    },
+    {
+      "file_path": "sdcard\\WhatsApp\\Backups\\stickers.db.crypt1",
+      "file_name": "stickers.db.crypt1",
+      "file_size": 323606,
+      "sha256_hash": "6c4ea88966e51eb7a16e6270c0bbb16740376838daf270f8287a562349a365c2",
+      "hash_timestamp": "2026-02-01 01:00:44"
+    },
+    {
+      "file_path": "sdcard\\WhatsApp\\Databases\\msgstore-2020-02-06.1.db.crypt12",
+      "file_name": "msgstore-2020-02-06.1.db.crypt12",
+      "file_size": 40510,
+      "sha256_hash": "f5f2ea6fcda2f1131fecf756707f5982e43b10a4af442c02415f12338e89ab07",
+      "hash_timestamp": "2026-02-01 01:00:44"
+    },
+    {
+      "file_path": "sdcard\\WhatsApp\\Databases\\msgstore-2020-02-07.1.db.crypt12",
+      "file_name": "msgstore-2020-02-07.1.db.crypt12",
+      "file_size": 40510,
+      "sha256_hash": "14e67ed974c02f2f0c2120124dc0b497b8e9fe251cebc2a2f05500d135ecbc8b",
+      "hash_timestamp": "2026-02-01 01:00:45"
+    },
+    {
+      "file_path": "sdcard\\WhatsApp\\Databases\\msgstore-2020-02-08.1.db.crypt12",
+      "file_name": "msgstore-2020-02-08.1.db.crypt12",
+      "file_size": 40519,
+      "sha256_hash": "48715f9b0c33e7b471c3471a4a7bbdf4662373dd979ef01933e9a69a87d64c4a",
+      "hash_timestamp": "2026-02-01 01:00:45"
+    },
+    {
+      "file_path": "sdcard\\WhatsApp\\Databases\\msgstore-2020-02-09.1.db.crypt12",
+      "file_name": "msgstore-2020-02-09.1.db.crypt12",
+      "file_size": 40513,
+      "sha256_hash": "58455cb4d464951018eec97e4491d67d53c13d288c3f67bb79ac4a296adc7a8f",
+      "hash_timestamp": "2026-02-01 01:00:45"
+    },
+    {
+      "file_path": "sdcard\\WhatsApp\\Databases\\msgstore-2020-02-10.1.db.crypt12",
+      "file_name": "msgstore-2020-02-10.1.db.crypt12",
+      "file_size": 47214,
+      "sha256_hash": "8992b85fc2429d70a9d1f2fdafa21d0123e18c31565694d3d172b34dfbe3a5cb",
+      "hash_timestamp": "2026-02-01 01:00:45"
+    },
+    {
+      "file_path": "sdcard\\WhatsApp\\Databases\\msgstore-2020-02-12.1.db.crypt12",
+      "file_name": "msgstore-2020-02-12.1.db.crypt12",
+      "file_size": 53212,
+      "sha256_hash": "8537cf25daa9019c8c7d65054f3f9d25e8964413c7ba60510b58b498594b627c",
+      "hash_timestamp": "2026-02-01 01:00:45"
+    },
+    {
+      "file_path": "sdcard\\WhatsApp\\Databases\\msgstore-2020-02-13.1.db.crypt12",
+      "file_name": "msgstore-2020-02-13.1.db.crypt12",
+      "file_size": 53208,
+      "sha256_hash": "f2efc8352784464767f1412fc152cbcc7fee23d4a3e34635d74b50c3073e5989",
+      "hash_timestamp": "2026-02-01 01:00:45"
+    },
+    {
+      "file_path": "sdcard\\WhatsApp\\Databases\\msgstore.db.crypt12",
+      "file_name": "msgstore.db.crypt12",
+      "file_size": 53228,
+      "sha256_hash": "9c542e958a2265f4dfc9d78b1d7480a42096d35ed706628f5a3941f48621a7e1",
+      "hash_timestamp": "2026-02-01 01:00:45"
+    },
+    {
+      "file_path": "sdcard\\WhatsApp\\Media\\WhatsApp Images\\IMG-20200208-WA0000.jpg",
+      "file_name": "IMG-20200208-WA0000.jpg",
+      "file_size": 21890,
+      "sha256_hash": "42941238f9492a0ea7089f6f7e656d4ef87e2f700ed9c86eebf1c3831bb57a51",
+      "hash_timestamp": "2026-02-01 01:00:45"
+    },
+    {
+      "file_path": "sdcard\\WhatsApp\\Media\\WhatsApp Images\\Sent\\IMG-20200208-WA0001.jpg",
+      "file_name": "IMG-20200208-WA0001.jpg",
+      "file_size": 87909,
+      "sha256_hash": "3b8575c790ccb12c335ce618a92cac0271072f291842c0356188d10d748bd452",
+      "hash_timestamp": "2026-02-01 01:00:45"
+    },
+    {
+      "file_path": "sdcard\\DCIM\\.thumbnails\\1581642305950.jpg",
+      "file_name": "1581642305950.jpg",
+      "file_size": 40894,
+      "sha256_hash": "0f7ba25ae54d000d5ef7e4a53f50e23fe77a8bfd01e9286c5a1874d69e4fa0d0",
+      "hash_timestamp": "2026-02-01 01:00:45"
+    },
+    {
+      "file_path": "sdcard\\DCIM\\Camera\\2020-02-09-125547759.mp4",
+      "file_name": "2020-02-09-125547759.mp4",
+      "file_size": 13216231,
+      "sha256_hash": "84b124b5e85ed79ddb7d8c9902607020f8583acb9d0dd3f8864f3838aa0c5352",
+      "hash_timestamp": "2026-02-01 01:00:45"
+    },
+    {
+      "file_path": "sdcard\\DCIM\\Camera\\IMG_20200209_132353.jpg",
+      "file_name": "IMG_20200209_132353.jpg",
+      "file_size": 3970621,
+      "sha256_hash": "308df52bdab5aa52e9e82b2a853049c688450c2ff6ad76cd75f0c063e61853fa",
+      "hash_timestamp": "2026-02-01 01:00:45"
+    },
+    {
+      "file_path": "sdcard\\DCIM\\Camera\\IMG_20200213_195030.jpg",
+      "file_name": "IMG_20200213_195030.jpg",
+      "file_size": 3450708,
+      "sha256_hash": "2ed43a0a7b01a58f89c23263542282d3d5713b5cd2f22d7b3d2f56a109145ea6",
+      "hash_timestamp": "2026-02-01 01:00:46"
+    },
+    {
+      "file_path": "sdcard\\DCIM\\imo\\IMG_20200201_142207.jpg",
+      "file_name": "IMG_20200201_142207.jpg",
+      "file_size": 47664,
+      "sha256_hash": "e8bc8fd6a1a8843961e7416b65bd203ca9c6b8a1a1f6375c2b0a15b552dc9100",
+      "hash_timestamp": "2026-02-01 01:00:46"
+    },
+    {
+      "file_path": "sdcard\\DCIM\\Restored\\2ECED1BB-39FB-454D-8B63-E336F88A0E18.JPG",
+      "file_name": "2ECED1BB-39FB-454D-8B63-E336F88A0E18.JPG",
+      "file_size": 11579,
+      "sha256_hash": "1d0bc03793beb84aa4ede54c64eff31563ee68b3c39d0728332c797509d3fc80",
+      "hash_timestamp": "2026-02-01 01:00:46"
+    },
+    {
+      "file_path": "sdcard\\DCIM\\Restored\\IMG_20190917_082637.jpg",
+      "file_name": "IMG_20190917_082637.jpg",
+      "file_size": 5754953,
+      "sha256_hash": "8c2a100a6a11aeccbfc196439c6d7d1cc0a149b3dd18264747735b7201bc1177",
+      "hash_timestamp": "2026-02-01 01:00:46"
+    },
+    {
+      "file_path": "data\\data\\com.android.providers.telephony\\databases\\mmssms.db",
+      "file_name": "mmssms.db",
+      "file_size": 118784,
+      "sha256_hash": "cd5452f52933252f9dca9177491e0a316b542755ac7eb40e61b4b5e3c53f1342",
+      "hash_timestamp": "2026-02-01 01:00:46"
+    },
+    {
+      "file_path": "data\\data\\com.android.providers.telephony\\shared_prefs\\com.android.providers.telephony_preferences.xml",
+      "file_name": "com.android.providers.telephony_preferences.xml",
+      "file_size": 126,
+      "sha256_hash": "c78e1440f6e305d1befee4d6961ab8c48d78d524078a65c4edbdddc6d290ec69",
+      "hash_timestamp": "2026-02-01 01:00:46"
+    },
+    {
+      "file_path": "data\\data\\com.android.providers.contacts\\app_voicemail-data\\voicemail4257613984156813452",
+      "file_name": "voicemail4257613984156813452",
+      "file_size": 8188,
+      "sha256_hash": "e21312cd3097ded6da158da02618325e7543796da6015a1b7e76fa87121dc03d",
+      "hash_timestamp": "2026-02-01 01:00:46"
+    },
+    {
+      "file_path": "data\\data\\com.android.providers.contacts\\app_voicemail-data\\voicemail6279788559607275412",
+      "file_name": "voicemail6279788559607275412",
+      "file_size": 7770,
+      "sha256_hash": "cb2481a0d4f737778b9a41dc46acac0ccb85013bd344df08edf080b906a4b1af",
+      "hash_timestamp": "2026-02-01 01:00:46"
+    },
+    {
+      "file_path": "data\\data\\com.android.providers.contacts\\databases\\calllog.db",
+      "file_name": "calllog.db",
+      "file_size": 40960,
+      "sha256_hash": "5979a3fa0b4e70aff6dc20675e84a14fa584e52ad4d224d9da14d8aa0ef809d3",
+      "hash_timestamp": "2026-02-01 01:00:46"
+    },
+    {
+      "file_path": "data\\data\\com.android.providers.contacts\\databases\\contacts2.db",
+      "file_name": "contacts2.db",
+      "file_size": 376832,
+      "sha256_hash": "2a1fee3d9412e2f746592fcc0f7abcdd0ece26bc02c95240fd210464f4625050",
+      "hash_timestamp": "2026-02-01 01:00:46"
+    },
+    {
+      "file_path": "data\\data\\com.android.providers.contacts\\databases\\profile.db",
+      "file_name": "profile.db",
+      "file_size": 376832,
+      "sha256_hash": "879afe1152fd6a2e9e04d51b4cb332d73514d12d5b8ee8c213b9321865b6b677",
+      "hash_timestamp": "2026-02-01 01:00:46"
+    },
+    {
+      "file_path": "data\\data\\com.android.providers.contacts\\shared_prefs\\com.android.providers.contacts_preferences.xml",
+      "file_name": "com.android.providers.contacts_preferences.xml",
+      "file_size": 113,
+      "sha256_hash": "18155a5ff16dc121414c425c5fa0e8a4c01b0e459922bfac4daafbd5667d4665",
+      "hash_timestamp": "2026-02-01 01:00:46"
+    },
+    {
+      "file_path": "data\\data\\com.android.providers.contacts\\shared_prefs\\ContactsUpgradeReceiver.xml",
+      "file_name": "ContactsUpgradeReceiver.xml",
+      "file_size": 217,
+      "sha256_hash": "0fdfaa3d541e07d6add9551fcb4c0c31b1e60979c97dc6c36cb1b678f0db3342",
+      "hash_timestamp": "2026-02-01 01:00:46"
+    }
+  ]
+}

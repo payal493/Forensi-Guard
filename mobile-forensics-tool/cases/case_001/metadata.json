@@ -1,0 +1,9 @@
+{
+  "case_id": "CASE-001",
+  "case_name": "Sample Android Investigation",
+  "investigator": "Investigator Name",
+  "data_source": "NIST CFReDS Android Dataset",
+  "device_type": "Android Smartphone",
+  "case_status": "Active",
+  "created_at": "2024-01-31 18:43:00"
+}

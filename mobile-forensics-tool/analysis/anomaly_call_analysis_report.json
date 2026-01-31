@@ -1,0 +1,37 @@
+{
+  "analysis_timestamp": "2026-01-31 21:27:26",
+  "analysis_type": "anomaly_call_analysis",
+  "total_anomalies": 5,
+  "findings": [
+    {
+      "timestamp": "2025-02-03 14:30:00",
+      "source": "CALL",
+      "type": "temporal_gap",
+      "details": "Unusual time gap of 25 hours between calls"
+    },
+    {
+      "timestamp": "2025-02-04 14:30:00",
+      "source": "CALL",
+      "type": "temporal_gap",
+      "details": "Unusual time gap of 24 hours between calls"
+    },
+    {
+      "timestamp": "2025-01-31 00:30:00",
+      "source": "CALL",
+      "type": "unusual_hour",
+      "details": "Call activity detected during unusual hours (00:00\u201304:00)"
+    },
+    {
+      "timestamp": "2025-02-02 01:15:00",
+      "source": "CALL",
+      "type": "unusual_hour",
+      "details": "Call activity detected during unusual hours (00:00\u201304:00)"
+    },
+    {
+      "timestamp": "2025-02-02 01:20:00",
+      "source": "CALL",
+      "type": "unusual_hour",
+      "details": "Call activity detected during unusual hours (00:00\u201304:00)"
+    }
+  ]
+}

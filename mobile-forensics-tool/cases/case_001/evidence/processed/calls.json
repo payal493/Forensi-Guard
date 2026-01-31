@@ -1,0 +1,20 @@
+[
+  {
+    "timestamp": "2024-01-15 08:45:12",
+    "source": "CALL",
+    "type": "incoming",
+    "details": "Incoming call from +91XXXXXXXXXX - Duration: 5m 23s"
+  },
+  {
+    "timestamp": "2024-01-15 11:30:45", 
+    "source": "CALL",
+    "type": "outgoing",
+    "details": "Outgoing call to +91XXXXXXXXXX - Duration: 12m 15s"
+  },
+  {
+    "timestamp": "2024-01-15 16:20:33",
+    "source": "CALL", 
+    "type": "incoming",
+    "details": "Missed call from +91XXXXXXXXXX - No answer"
+  }
+]

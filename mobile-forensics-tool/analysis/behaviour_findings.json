@@ -1,0 +1,19 @@
+{
+  "analysis_timestamp": "2024-01-15 21:00:00",
+  "suspicious_patterns": [
+    {
+      "pattern": "High frequency communication",
+      "description": "15+ messages exchanged with same contact within 2 hours",
+      "risk_level": "medium",
+      "evidence_references": ["sms.json:1", "sms.json:2"]
+    },
+    {
+      "pattern": "Unusual activity hours", 
+      "description": "App usage detected between 2AM-4AM",
+      "risk_level": "low",
+      "evidence_references": ["apps.json:3"]
+    }
+  ],
+  "risk_level": "medium",
+  "evidence_references": ["sms.json", "calls.json", "apps.json"]
+}

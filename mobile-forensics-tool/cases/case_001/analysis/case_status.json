@@ -1,0 +1,10 @@
+{
+  "suspicion_level": "Highly Suspicious",
+  "score": 4,
+  "reasons": [
+    "Suspicious behaviour indicators present (2 patterns)",
+    "Timestamp anomalies detected (1 anomalies)",
+    "Malware indicators present (1 indicators)"
+  ],
+  "classification_timestamp": "2026-02-01 00:45:13"
+}

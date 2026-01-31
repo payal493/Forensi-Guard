@@ -1,0 +1,11 @@
+{
+  "case_id": "CASE-002",
+  "case_name": "NIST CFReDS Android Device Investigation",
+  "investigator": "Forensic Pipeline Orchestrator",
+  "data_source": "NIST CFReDS Android Dataset",
+  "device_type": "Android Smartphone",
+  "case_status": "Active",
+  "created_at": "2026-02-01 00:52:00",
+  "ingestion_time": "2026-02-01 00:52:00",
+  "evidence_summary": "Android device with contacts, SMS/MMS, call logs, and WhatsApp data"
+}

@@ -1,0 +1,27 @@
+{
+  "generation_timestamp": "2024-01-15 21:15:00",
+  "tool_version": "mobile-forensics-tool v1.0",
+  "evidence_directory": "evidence/raw/",
+  "total_files": 12,
+  "total_size_bytes": 2048576,
+  "files": [
+    {
+      "file_path": "sms_backup.xml",
+      "sha256_hash": "a1b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef123456",
+      "file_size_bytes": 45678,
+      "last_modified": "2024-01-15 06:00:00"
+    },
+    {
+      "file_path": "call_log.db",
+      "sha256_hash": "b2c3d4e5f6789012345678901234567890abcdef1234567890abcdef1234567",
+      "file_size_bytes": 23456,
+      "last_modified": "2024-01-15 06:05:00"
+    },
+    {
+      "file_path": "media_files.zip",
+      "sha256_hash": "c3d4e5f6789012345678901234567890abcdef1234567890abcdef12345678",
+      "file_size_bytes": 1567890,
+      "last_modified": "2024-01-15 06:10:00"
+    }
+  ]
+}

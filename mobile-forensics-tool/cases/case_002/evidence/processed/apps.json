@@ -1,0 +1,68 @@
+[
+  {
+    "timestamp": "2026-02-01 00:15:53",
+    "source": "APP",
+    "type": "data",
+    "details": "App data directory: sdcard\\WhatsApp"
+  },
+  {
+    "timestamp": "2026-02-01 00:15:53",
+    "source": "APP",
+    "type": "data",
+    "details": "App data directory: sdcard\\WhatsApp\\Media\\WhatsApp Images"
+  },
+  {
+    "timestamp": "2026-02-01 00:15:52",
+    "source": "APP",
+    "type": "data",
+    "details": "App data directory: data\\data\\com.android.providers.contacts"
+  },
+  {
+    "timestamp": "2026-02-01 00:15:52",
+    "source": "APP",
+    "type": "data",
+    "details": "App data directory: data\\data\\com.android.providers.telephony"
+  },
+  {
+    "timestamp": "2026-02-01 00:15:51",
+    "source": "APP",
+    "type": "data",
+    "details": "App data directory: data"
+  },
+  {
+    "timestamp": "2026-02-01 00:15:52",
+    "source": "APP",
+    "type": "data",
+    "details": "App data directory: data\\data"
+  },
+  {
+    "timestamp": "2026-02-01 00:15:53",
+    "source": "APP",
+    "type": "data",
+    "details": "App data directory: sdcard\\WhatsApp\\Databases"
+  },
+  {
+    "timestamp": "2026-02-01 00:15:52",
+    "source": "APP",
+    "type": "data",
+    "details": "App data directory: data\\data\\com.android.providers.contacts\\app_voicemail-data"
+  },
+  {
+    "timestamp": "2026-02-01 00:15:52",
+    "source": "APP",
+    "type": "data",
+    "details": "App data directory: data\\data\\com.android.providers.contacts\\databases"
+  },
+  {
+    "timestamp": "2026-02-01 00:15:52",
+    "source": "APP",
+    "type": "data",
+    "details": "App data directory: data\\data\\com.android.providers.telephony\\databases"
+  },
+  {
+    "timestamp": "2026-02-01 00:15:52",
+    "source": "APP",
+    "type": "data",
+    "details": "App data directory: sdcard\\DCIM"
+  }
+]

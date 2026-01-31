@@ -1,0 +1,22 @@
+{
+  "analysis_timestamp": "2024-01-15 21:10:00",
+  "temporal_anomalies": [
+    {
+      "type": "timeline_gap",
+      "description": "6 hour gap in activity from 14:22 to 20:15",
+      "duration_hours": 5.9,
+      "significance": "medium"
+    }
+  ],
+  "logical_inconsistencies": [],
+  "timeline_gaps": [
+    {
+      "start_time": "2024-01-15 14:22:18",
+      "end_time": "2024-01-15 20:15:30", 
+      "duration_hours": 5.9,
+      "context": "Gap between SMS and app activity"
+    }
+  ],
+  "suspicious_patterns": [],
+  "evidence_integrity_score": 98.5
+}

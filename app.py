@@ -333,6 +333,12 @@ def results():
     return render_template('results.html')
 
 
+@app.route('/extraction-guide')
+def extraction_guide():
+    """Android data extraction guide page"""
+    return render_template('extraction_guide.html')
+
+
 if __name__ == '__main__':
     print("\n" + "="*70)
     print("🚀 Forensi-Guard Demo UI Starting...")

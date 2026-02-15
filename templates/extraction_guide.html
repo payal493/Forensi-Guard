@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Android Data Extraction Guide - Forensi-Guard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        .guide-container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .purpose-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+        }
+
+        .purpose-section h1 {
+            margin: 0 0 15px 0;
+            font-size: 28px;
+        }
+
+        .purpose-section p {
+            margin: 8px 0;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .checklist-section {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .checklist-section h2 {
+            margin: 0 0 20px 0;
+            color: #333;
+            font-size: 22px;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            padding: 12px;
+            margin: 8px 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .checklist-item::before {
+            content: "✓";
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            background: #10b981;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 24px;
+            margin-right: 12px;
+            font-weight: bold;
+        }
+
+        .step-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            border-left: 4px solid #667eea;
+        }
+
+        .step-card h3 {
+            margin: 0 0 15px 0;
+            color: #667eea;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            background: #667eea;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 32px;
+            margin-right: 12px;
+            font-weight: bold;
+        }
+
+        .step-content {
+            color: #555;
+            line-height: 1.8;
+        }
+
+        .step-content p {
+            margin: 10px 0;
+        }
+
+        .command-box {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            margin: 15px 0;
+            position: relative;
+            overflow-x: auto;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .copy-btn:hover {
+            background: #5568d3;
+        }
+
+        .copy-btn.copied {
+            background: #10b981;
+        }
+
+        .collapsible-section {
+            margin: 15px 0;
+        }
+
+        .collapsible-header {
+            background: #f8f9fa;
+            padding: 12px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            user-select: none;
+        }
+
+        .collapsible-header:hover {
+            background: #e9ecef;
+        }
+
+        .collapsible-content {
+            display: none;
+            padding: 15px 0;
+        }
+
+        .collapsible-content.active {
+            display: block;
+        }
+
+        .arrow {
+            transition: transform 0.3s;
+        }
+
+        .arrow.rotated {
+            transform: rotate(180deg);
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .warning-box h3 {
+            margin: 0 0 10px 0;
+            color: #856404;
+            display: flex;
+            align-items: center;
+        }
+
+        .warning-box h3::before {
+            content: "⚠️";
+            margin-right: 10px;
+            font-size: 24px;
+        }
+
+        .warning-box ul {
+            margin: 10px 0;
+            padding-left: 20px;
+            color: #856404;
+        }
+
+        .upload-section {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .upload-area {
+            border: 3px dashed #667eea;
+            border-radius: 12px;
+            padding: 40px;
+            margin: 20px 0;
+            background: #f8f9fa;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .upload-area:hover {
+            background: #e9ecef;
+            border-color: #5568d3;
+        }
+
+        .upload-area p {
+            margin: 10px 0;
+            color: #666;
+        }
+
+        .upload-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        .upload-btn:hover {
+            background: #5568d3;
+        }
+
+        .simplified-toggle {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .toggle-btn {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .toggle-btn:hover {
+            background: #059669;
+        }
+
+        .simplified-view {
+            display: none;
+        }
+
+        .simplified-view.active {
+            display: block;
+        }
+
+        .detailed-view.hidden {
+            display: none;
+        }
+
+        .visual-step {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .visual-step img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .visual-step h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .faq-section {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin: 30px 0;
+        }
+
+        .faq-item {
+            margin: 15px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .faq-question {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .faq-answer {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .video-placeholder {
+            background: #f8f9fa;
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 20px 0;
+            border: 2px dashed #ccc;
+        }
+
+        .video-placeholder::before {
+            content: "▶️";
+            font-size: 48px;
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin: 20px 0;
+            color: #667eea;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        .download-link {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            margin: 10px 0;
+        }
+
+        .download-link:hover {
+            background: #5568d3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="guide-container">
+        <a href="/" class="back-link">← Back to Home</a>
+
+        <!-- Purpose Section -->
+        <div class="purpose-section">
+            <h1>📱 How to Extract Read-Only Data from Your Android Phone</h1>
+            <p><strong>What this guide does:</strong></p>
+            <p>✓ Extracts read-only device information safely</p>
+            <p>✓ Does NOT modify, delete, or change any data on your phone</p>
+            <p>✓ Helps you analyze your own device for security concerns</p>
+            <p>✓ Respects your privacy - data stays on your computer</p>
+            <p><strong>Important:</strong> Only use this on your own device with your consent. This is for personal
+                security analysis only.</p>
+        </div>
+
+        <!-- Simplified Toggle -->
+        <div class="simplified-toggle">
+            <button class="toggle-btn" onclick="toggleSimplifiedView()">
+                <span id="toggle-icon">👁️</span>
+                <span id="toggle-text">I'm not technical — show simplified steps</span>
+            </button>
+        </div>
+
+        <!-- Simplified View -->
+        <div class="simplified-view" id="simplified-view">
+            <div class="visual-step">
+                <h3>Step 1: Enable Developer Mode</h3>
+                <p>Go to Settings → About Phone → Tap "Build Number" 7 times</p>
+                <div class="video-placeholder">
+                    <p>Video tutorial coming soon</p>
+                </div>
+            </div>
+
+            <div class="visual-step">
+                <h3>Step 2: Enable USB Debugging</h3>
+                <p>Go to Settings → Developer Options → Turn on "USB Debugging"</p>
+                <div class="video-placeholder">
+                    <p>Video tutorial coming soon</p>
+                </div>
+            </div>
+
+            <div class="visual-step">
+                <h3>Step 3: Download Android Tools</h3>
+                <p>Download the official Android Platform Tools from Google</p>
+                <a href="https://developer.android.com/tools/releases/platform-tools" target="_blank"
+                    class="download-link">Download Platform Tools</a>
+            </div>
+
+            <div class="visual-step">
+                <h3>Step 4: Connect Your Phone</h3>
+                <p>Connect your phone to computer with USB cable</p>
+                <p>Allow debugging permission when prompted on your phone</p>
+            </div>
+
+            <div class="visual-step">
+                <h3>Step 5: Extract Data</h3>
+                <p>Open the platform-tools folder and run the provided commands</p>
+                <p>Files will be saved in the same folder</p>
+            </div>
+
+            <div class="visual-step">
+                <h3>Step 6: Upload for Analysis</h3>
+                <p>Upload the generated files to our tool for security analysis</p>
+                <a href="/" class="download-link">Go to Analysis Tool</a>
+            </div>
+        </div>
+
+        <!-- Detailed View -->
+        <div class="detailed-view" id="detailed-view">
+            <!-- Before You Begin -->
+            <div class="checklist-section">
+                <h2>Before You Begin - Checklist</h2>
+                <div class="checklist-item">Android phone (any version)</div>
+                <div class="checklist-item">USB cable (original cable recommended)</div>
+                <div class="checklist-item">Computer (Windows, Linux, or Mac)</div>
+                <div class="checklist-item">Internet connection (for downloading tools)</div>
+                <div class="checklist-item">15-20 minutes of time</div>
+            </div>
+
+            <!-- Step-by-Step Instructions -->
+            <h2 style="margin: 30px 0 20px 0; color: #333;">Step-by-Step Instructions</h2>
+
+            <!-- Step 1 -->
+            <div class="step-card">
+                <h3><span class="step-number">1</span> Enable Developer Mode</h3>
+                <div class="step-content">
+                    <p><strong>What to do:</strong></p>
+                    <ol>
+                        <li>Open <strong>Settings</strong> on your Android phone</li>
+                        <li>Scroll down and tap <strong>About Phone</strong></li>
+                        <li>Find <strong>Build Number</strong></li>
+                        <li>Tap <strong>Build Number</strong> 7 times quickly</li>
+                        <li>You'll see a message: "You are now a developer!"</li>
+                    </ol>
+                    <p><strong>Why:</strong> This unlocks developer options needed for data extraction.</p>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="step-card">
+                <h3><span class="step-number">2</span> Enable USB Debugging</h3>
+                <div class="step-content">
+                    <p><strong>What to do:</strong></p>
+                    <ol>
+                        <li>Go back to <strong>Settings</strong></li>
+                        <li>Find and tap <strong>Developer Options</strong> (now visible)</li>
+                        <li>Scroll down to find <strong>USB Debugging</strong></li>
+                        <li>Toggle <strong>USB Debugging</strong> ON</li>
+                        <li>Confirm when prompted</li>
+                    </ol>
+                    <p><strong>Why:</strong> This allows your computer to communicate with your phone safely.</p>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="step-card">
+                <h3><span class="step-number">3</span> Install Android Platform Tools</h3>
+                <div class="step-content">
+                    <p><strong>What to do:</strong></p>
+                    <ol>
+                        <li>Download Android Platform Tools from the official Google website:</li>
+                        <a href="https://developer.android.com/tools/releases/platform-tools" target="_blank"
+                            class="download-link">Download Platform Tools</a>
+                        <li>Extract the downloaded ZIP file to a folder (e.g., Desktop)</li>
+                        <li>Open the extracted <strong>platform-tools</strong> folder</li>
+                    </ol>
+                    <p><strong>For Windows:</strong> Hold Shift + Right-click inside the folder → Select "Open
+                        PowerShell window here" or "Open command window here"</p>
+                    <p><strong>For Mac/Linux:</strong> Open Terminal and navigate to the folder using:
+                        <code>cd /path/to/platform-tools</code></p>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="step-card">
+                <h3><span class="step-number">4</span> Connect Phone to Computer</h3>
+                <div class="step-content">
+                    <p><strong>What to do:</strong></p>
+                    <ol>
+                        <li>Connect your Android phone to computer using USB cable</li>
+                        <li>On your phone, you'll see a popup: <strong>"Allow USB debugging?"</strong></li>
+                        <li>Check <strong>"Always allow from this computer"</strong></li>
+                        <li>Tap <strong>OK</strong></li>
+                    </ol>
+                    <p><strong>Why:</strong> This establishes a secure connection between your phone and computer.</p>
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="step-card">
+                <h3><span class="step-number">5</span> Verify Device Connection</h3>
+                <div class="step-content">
+                    <p><strong>What to do:</strong></p>
+                    <p>In the command window/terminal, type this command:</p>
+                    <div class="command-box">
+                        <button class="copy-btn" onclick="copyCommand(this, 'adb devices')">Copy</button>
+                        adb devices
+                    </div>
+                    <p><strong>Expected output:</strong></p>
+                    <div class="command-box">
+                        List of devices attached<br>
+                        ABC123XYZ device
+                    </div>
+                    <p>If you see your device ID followed by "device", you're connected! ✓</p>
+                    <p><strong>Troubleshooting:</strong> If no device appears, check USB cable, try different USB port,
+                        or restart phone.</p>
+                </div>
+            </div>
+
+            <!-- Step 6 - Extract Data -->
+            <div class="step-card">
+                <h3><span class="step-number">6</span> Extract Basic Read-Only Data</h3>
+                <div class="step-content">
+                    <p><strong>Important:</strong> These commands only READ data. They do NOT modify anything on your
+                        phone.</p>
+
+                    <div class="collapsible-section">
+                        <div class="collapsible-header" onclick="toggleCollapsible(this)">
+                            <span><strong>Extract Installed Apps List</strong></span>
+                            <span class="arrow">▼</span>
+                        </div>
+                        <div class="collapsible-content">
+                            <p>This extracts a list of all installed apps on your phone:</p>
+                            <div class="command-box">
+                                <button class="copy-btn"
+                                    onclick="copyCommand(this, 'adb shell pm list packages > apps.txt')">Copy</button>
+                                adb shell pm list packages > apps.txt
+                            </div>
+                            <p>Output file: <strong>apps.txt</strong> (saved in platform-tools folder)</p>
+                        </div>
+                    </div>
+
+                    <div class="collapsible-section">
+                        <div class="collapsible-header" onclick="toggleCollapsible(this)">
+                            <span><strong>Extract App Permissions</strong></span>
+                            <span class="arrow">▼</span>
+                        </div>
+                        <div class="collapsible-content">
+                            <p>This extracts information about app permissions:</p>
+                            <div class="command-box">
+                                <button class="copy-btn"
+                                    onclick="copyCommand(this, 'adb shell dumpsys package > permissions.txt')">Copy</button>
+                                adb shell dumpsys package > permissions.txt
+                            </div>
+                            <p>Output file: <strong>permissions.txt</strong></p>
+                        </div>
+                    </div>
+
+                    <div class="collapsible-section">
+                        <div class="collapsible-header" onclick="toggleCollapsible(this)">
+                            <span><strong>Extract Call Logs</strong></span>
+                            <span class="arrow">▼</span>
+                        </div>
+                        <div class="collapsible-content">
+                            <p>This extracts your call history (read-only):</p>
+                            <div class="command-box">
+                                <button class="copy-btn"
+                                    onclick="copyCommand(this, 'adb shell content query --uri content://call_log/calls > calls.txt')">Copy</button>
+                                adb shell content query --uri content://call_log/calls > calls.txt
+                            </div>
+                            <p>Output file: <strong>calls.txt</strong></p>
+                        </div>
+                    </div>
+
+                    <div class="collapsible-section">
+                        <div class="collapsible-header" onclick="toggleCollapsible(this)">
+                            <span><strong>Extract SMS Logs</strong></span>
+                            <span class="arrow">▼</span>
+                        </div>
+                        <div class="collapsible-content">
+                            <p>This extracts your SMS messages (read-only):</p>
+                            <div class="command-box">
+                                <button class="copy-btn"
+                                    onclick="copyCommand(this, 'adb shell content query --uri content://sms > sms.txt')">Copy</button>
+                                adb shell content query --uri content://sms > sms.txt
+                            </div>
+                            <p>Output file: <strong>sms.txt</strong></p>
+                        </div>
+                    </div>
+
+                    <p style="margin-top: 20px;"><strong>Where are the files?</strong> All extracted files are saved in
+                        your <strong>platform-tools</strong> folder.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Upload Section -->
+        <div class="upload-section">
+            <h2>Upload Files for Analysis</h2>
+            <p>Once you've extracted the data files, upload them here for AI-assisted security analysis.</p>
+
+            <div class="upload-area" onclick="document.getElementById('file-input').click()">
+                <p style="font-size: 48px; margin: 0;">📁</p>
+                <p><strong>Drag & drop files here</strong></p>
+                <p>or click to browse</p>
+                <input type="file" id="file-input" multiple style="display: none;" onchange="handleFileSelect(event)">
+            </div>
+
+            <button class="upload-btn" onclick="uploadFiles()">Upload & Analyze</button>
+
+            <p style="margin-top: 20px; color: #666; font-size: 14px;">
+                Supported files: apps.txt, permissions.txt, calls.txt, sms.txt
+            </p>
+        </div>
+
+        <!-- Safety & Privacy Notice -->
+        <div class="warning-box">
+            <h3>Safety & Privacy Notice</h3>
+            <ul>
+                <li><strong>Read-only extraction:</strong> No data is modified or deleted from your phone</li>
+                <li><strong>No rooting required:</strong> Your phone warranty remains intact</li>
+                <li><strong>Your device only:</strong> Only analyze devices you own with proper consent</li>
+                <li><strong>Data privacy:</strong> Extracted data stays on your computer unless you upload it</li>
+                <li><strong>Secure analysis:</strong> Our tool processes data locally and respects your privacy</li>
+                <li><strong>Legal use:</strong> This tool is for personal security analysis only</li>
+            </ul>
+        </div>
+
+        <!-- Video Guide Placeholder -->
+        <div class="video-placeholder">
+            <p><strong>Watch Video Guide</strong></p>
+            <p>Step-by-step video tutorial coming soon</p>
+        </div>
+
+        <!-- FAQ Section -->
+        <div class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+
+            <div class="faq-item">
+                <div class="faq-question">Q: Will this void my phone warranty?</div>
+                <div class="faq-answer">A: No. Enabling USB debugging and using ADB does not void your warranty. We're
+                    not rooting or modifying your phone.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Q: My device is not detected. What should I do?</div>
+                <div class="faq-answer">A: Try these steps: 1) Use a different USB cable, 2) Try a different USB port,
+                    3) Restart your phone, 4) Reinstall USB drivers, 5) Make sure USB debugging is enabled.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Q: Is this safe for my phone?</div>
+                <div class="faq-answer">A: Yes, completely safe. We're only reading data, not writing or modifying
+                    anything. It's like taking a photo of your data.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Q: Do I need to root my phone?</div>
+                <div class="faq-answer">A: No! Rooting is NOT required. These commands work on any Android phone with
+                    USB debugging enabled.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Q: What if I get "permission denied" errors?</div>
+                <div class="faq-answer">A: Some data may require additional permissions. This is normal. The tool will
+                    extract what's accessible without root access.</div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">Q: Can I turn off USB debugging after extraction?</div>
+                <div class="faq-answer">A: Yes! Once you're done, you can disable USB debugging in Developer Options for
+                    security.</div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin: 40px 0;">
+            <a href="/" class="upload-btn">Go to Analysis Tool</a>
+        </div>
+    </div>
+
+    <script>
+        function toggleCollapsible(header) {
+            const content = header.nextElementSibling;
+            const arrow = header.querySelector('.arrow');
+
+            content.classList.toggle('active');
+            arrow.classList.toggle('rotated');
+        }
+
+        function copyCommand(button, command) {
+            navigator.clipboard.writeText(command).then(() => {
+                button.textContent = 'Copied!';
+                button.classList.add('copied');
+                setTimeout(() => {
+                    button.textContent = 'Copy';
+                    button.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        function toggleSimplifiedView() {
+            const simplifiedView = document.getElementById('simplified-view');
+            const detailedView = document.getElementById('detailed-view');
+            const toggleIcon = document.getElementById('toggle-icon');
+            const toggleText = document.getElementById('toggle-text');
+
+            if (simplifiedView.classList.contains('active')) {
+                // Switch to detailed view
+                simplifiedView.classList.remove('active');
+                detailedView.classList.remove('hidden');
+                toggleIcon.textContent = '👁️';
+                toggleText.textContent = "I'm not technical — show simplified steps";
+            } else {
+                // Switch to simplified view
+                simplifiedView.classList.add('active');
+                detailedView.classList.add('hidden');
+                toggleIcon.textContent = '📋';
+                toggleText.textContent = 'Show detailed technical steps';
+            }
+        }
+
+        let selectedFiles = [];
+
+        function handleFileSelect(event) {
+            selectedFiles = Array.from(event.target.files);
+            const uploadArea = document.querySelector('.upload-area');
+
+            if (selectedFiles.length > 0) {
+                uploadArea.innerHTML = `
+                    <p style="font-size: 48px; margin: 0;">✓</p>
+                    <p><strong>${selectedFiles.length} file(s) selected</strong></p>
+                    <p>${selectedFiles.map(f => f.name).join(', ')}</p>
+                `;
+            }
+        }
+
+        function uploadFiles() {
+            if (selectedFiles.length === 0) {
+                alert('Please select files to upload first.');
+                return;
+            }
+
+            // For demo purposes - in production, this would upload to server
+            alert('Upload functionality coming soon! For now, you can use the demo cases in the main analysis tool.');
+            window.location.href = '/';
+        }
+
+        // Drag and drop functionality
+        const uploadArea = document.querySelector('.upload-area');
+
+        uploadArea.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadArea.style.background = '#e9ecef';
+        });
+
+        uploadArea.addEventListener('dragleave', () => {
+            uploadArea.style.background = '#f8f9fa';
+        });
+
+        uploadArea.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadArea.style.background = '#f8f9fa';
+
+            const files = Array.from(e.dataTransfer.files);
+            selectedFiles = files;
+
+            if (files.length > 0) {
+                uploadArea.innerHTML = `
+                    <p style="font-size: 48px; margin: 0;">✓</p>
+                    <p><strong>${files.length} file(s) selected</strong></p>
+                    <p>${files.map(f => f.name).join(', ')}</p>
+                `;
+            }
+        });
+    </script>
+</body>
+
+</html>

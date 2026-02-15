@@ -1,0 +1,10 @@
+{
+  "case_id": "CASE-LIVE-TEST",
+  "device_model": "Test Android Device (Live)",
+  "dataset_source": "Live Android Device (ADB Logical)",
+  "acquisition_method": "ADB logical extraction",
+  "consent": "Explicit user consent obtained",
+  "investigator": "Test Investigator",
+  "case_created": "2026-02-01 02:46:12",
+  "device_id": "test_device_12345"
+}

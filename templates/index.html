@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forensi-Guard - AI-Assisted Mobile Forensics</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔍 Forensi-Guard</h1>
+            <p class="subtitle">AI-Assisted Mobile Forensics Interpretation Tool</p>
+        </div>
+
+        <div class="card">
+            <h2>About This Tool</h2>
+            <p>
+                Forensi-Guard uses AI to interpret mobile forensic data and generate
+                plain-language reports for cyber harassment investigations. The system
+                analyzes device artefacts, identifies security threats, and provides
+                actionable safety recommendations.
+            </p>
+
+            <div class="features">
+                <div class="feature-item">
+                    <span class="icon">🔍</span>
+                    <span>Evidence Interpretation</span>
+                </div>
+                <div class="feature-item">
+                    <span class="icon">⚠️</span>
+                    <span>Risk Assessment</span>
+                </div>
+                <div class="feature-item">
+                    <span class="icon">📖</span>
+                    <span>Timeline Narrative</span>
+                </div>
+                <div class="feature-item">
+                    <span class="icon">🛡️</span>
+                    <span>Safety Recommendations</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Demo Analysis</h2>
+            <p>
+                Select a forensic investigation case and language to run AI analysis.
+                The system will process the evidence and generate an explainable report.
+            </p>
+
+            <form id="analysisForm" onsubmit="return false;">
+                <div class="case-selector">
+                    <label for="case"><strong>Select Investigation Case:</strong></label>
+                    <select id="case" name="case" class="case-dropdown">
+                        {% if cases %}
+                        {% for case in cases %}
+                        <option value="{{ case.value }}">{{ case.label }}</option>
+                        {% endfor %}
+                        {% else %}
+                        <option value="">No cases available</option>
+                        {% endif %}
+                    </select>
+                </div>
+
+                <div class="language-selector">
+                    <label for="language"><strong>Select Language:</strong></label>
+                    <select id="language" name="language" class="language-dropdown">
+                        <option value="en">English</option>
+                        <option value="hi">हिन्दी (Hindi)</option>
+                        <option value="gu">ગુજરાતી (Gujarati)</option>
+                    </select>
+                </div>
+
+                <button id="analyzeBtn" class="btn-primary" onclick="runAnalysis()" {% if not cases %}disabled{% endif
+                    %}>
+                    Run Analysis
+                </button>
+            </form>
+
+            <div id="loading" class="loading" style="display: none;">
+                <div class="spinner"></div>
+                <p>Analyzing forensic data...</p>
+            </div>
+
+            <div id="error" class="error" style="display: none;"></div>
+        </div>
+
+        <footer>
+            <p>AI-generated insights. Evidence integrity preserved.</p>
+            <p class="small">Prototype demonstration interface</p>
+        </footer>
+    </div>
+
+    <script>
+        function runAnalysis() {
+            const btn = document.getElementById('analyzeBtn');
+            const loading = document.getElementById('loading');
+            const error = document.getElementById('error');
+            const caseSelect = document.getElementById('case');
+            const languageSelect = document.getElementById('language');
+
+            // Hide error, show loading
+            error.style.display = 'none';
+            loading.style.display = 'block';
+            btn.disabled = true;
+
+            // Prepare form data with case and language
+            const formData = new FormData();
+            formData.append('case', caseSelect.value);
+            formData.append('language', languageSelect.value);
+
+            // Call analysis endpoint
+            fetch('/analyze', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        // Store report, language, and case info in sessionStorage
+                        sessionStorage.setItem('forensic_report', JSON.stringify(data.report));
+                        sessionStorage.setItem('report_language', data.language || 'en');
+                        sessionStorage.setItem('case_name', data.case_name || 'Unknown');
+                        sessionStorage.setItem('case_label', data.case_label || data.case_name);
+                        // Redirect to results page
+                        window.location.href = '/results';
+                    } else {
+                        throw new Error(data.message || 'Analysis failed');
+                    }
+                })
+                .catch(err => {
+                    loading.style.display = 'none';
+                    error.style.display = 'block';
+                    error.textContent = 'Error: ' + err.message;
+                    btn.disabled = false;
+                });
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,10 @@
+{
+  "case_id": "CASE-LIVE-001",
+  "device_model": "CPH2569 (Live)",
+  "dataset_source": "Live Android Device (ADB Logical)",
+  "acquisition_method": "ADB logical extraction",
+  "consent": "Explicit user consent obtained",
+  "investigator": "Investigator Name",
+  "case_created": "2026-02-01 03:34:36",
+  "device_id": "523744f0"
+}

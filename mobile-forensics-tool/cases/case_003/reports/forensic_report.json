@@ -1,0 +1,74 @@
+{
+  "report_metadata": {
+    "generation_timestamp": "2026-02-01 03:51:06",
+    "tool_version": "mobile-forensics-tool v1.0",
+    "investigator": "Forensic Pipeline Orchestrator",
+    "case_number": "CASE_LIVE_001",
+    "evidence_source": "Live Android Device (ADB Logical)"
+  },
+  "case_metadata": {
+    "case_id": "CASE-LIVE-001",
+    "device_model": "CPH2569 (Live)",
+    "dataset_source": "Live Android Device (ADB Logical)",
+    "acquisition_method": "ADB logical extraction",
+    "consent": "Explicit user consent obtained",
+    "investigator": "Investigator Name",
+    "case_created": "2026-02-01 03:34:36",
+    "device_id": "523744f0"
+  },
+  "evidence_integrity": {
+    "hash_verification_status": "NOT_APPLICABLE",
+    "total_files_hashed": 0,
+    "hash_algorithm": "N/A",
+    "integrity_score": 100.0,
+    "note": "Live case with debug artifacts - no hash verification needed"
+  },
+  "timeline_summary": {
+    "total_events": 10,
+    "date_range": {
+      "start": "2026-02-01 09:15:23",
+      "end": "2026-02-01 18:22:45"
+    },
+    "sources": [
+      "CALL",
+      "SMS"
+    ]
+  },
+  "analysis_findings": {
+    "suspicious_behaviour": [
+      {
+        "pattern": "High call frequency",
+        "description": "Multiple calls detected (5 calls)",
+        "risk_level": "low",
+        "evidence_references": [
+          "calls.json"
+        ]
+      },
+      {
+        "pattern": "High message frequency",
+        "description": "Multiple messages detected (5 messages)",
+        "risk_level": "low",
+        "evidence_references": [
+          "sms.json"
+        ]
+      }
+    ],
+    "malware_indicators": [],
+    "timestamp_anomalies": []
+  },
+  "suspicion_classification": {
+    "suspicion_level": "Suspicious",
+    "score": 1,
+    "reasons": [
+      "Suspicious behaviour indicators present (2 patterns)"
+    ],
+    "classification_timestamp": "2026-02-01 03:50:10"
+  },
+  "conclusions": {
+    "overall_risk_level": "Suspicious",
+    "total_findings": 2,
+    "investigation_status": "Complete",
+    "next_steps": "Review live debug findings and validate pipeline functionality",
+    "note": "This case contains simulated communication artifacts for pipeline validation"
+  }
+}

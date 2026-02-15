@@ -1,0 +1,10 @@
+# FOR LIVE DEBUGGING & DEMO PURPOSES ONLY – NOT SYSTEM EXTRACTION
+# This file simulates limited SMS artifacts for pipeline validation
+# Does NOT bypass Android security or access protected databases
+
+timestamp,direction,number,message
+2026-02-01 09:16:05,incoming,+91XXXXXXXXXX,Meeting confirmed for 10 AM
+2026-02-01 11:33:12,outgoing,+91YYYYYYYYYY,Running late, will be there in 15 mins
+2026-02-01 14:21:45,incoming,+91XXXXXXXXXX,Documents sent via email
+2026-02-01 16:46:02,outgoing,+91ZZZZZZZZZZ,Thanks for the update
+2026-02-01 18:22:45,incoming,+91YYYYYYYYYY,See you tomorrow

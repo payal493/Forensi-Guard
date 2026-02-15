@@ -1,0 +1,8 @@
+{
+  "suspicion_level": "Suspicious",
+  "score": 1,
+  "reasons": [
+    "Suspicious behaviour indicators present (2 patterns)"
+  ],
+  "classification_timestamp": "2026-02-01 03:50:10"
+}

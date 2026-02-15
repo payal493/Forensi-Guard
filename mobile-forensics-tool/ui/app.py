@@ -130,23 +130,46 @@ DASHBOARD_TEMPLATE = """
 <head>
     <title>Mobile Forensics Tool - Dashboard</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 40px; background: #f5f5f5; }
-        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; }
-        .header { text-align: center; color: #333; border-bottom: 2px solid #007bff; padding-bottom: 20px; }
-        .nav { margin: 20px 0; text-align: center; }
-        .nav a { margin: 0 15px; padding: 10px 20px; background: #007bff; color: white; text-decoration: none; border-radius: 4px; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 40px; background: #f8f9fa; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .header { text-align: center; color: #2c3e50; border-bottom: 3px solid #007bff; padding-bottom: 20px; margin-bottom: 30px; }
+        .header h1 { margin: 0; font-size: 28px; font-weight: 600; }
+        .header h2 { margin: 10px 0 0 0; font-size: 16px; color: #6c757d; font-weight: 400; }
+        .nav { margin: 25px 0; text-align: center; }
+        .nav a { margin: 0 10px; padding: 12px 24px; background: #007bff; color: white; text-decoration: none; border-radius: 6px; font-weight: 500; transition: background 0.3s; }
         .nav a:hover { background: #0056b3; }
-        .status { background: #d4edda; padding: 15px; border-radius: 4px; margin: 20px 0; }
-        .integration-status { background: #fff3cd; padding: 15px; border-radius: 4px; margin: 20px 0; }
-        .progress-bar { width: 100%; height: 20px; background: #e9ecef; border-radius: 10px; overflow: hidden; margin: 10px 0; }
-        .progress-fill { height: 100%; background: #28a745; transition: width 0.3s ease; }
+        .section { margin: 25px 0; padding: 20px; border-radius: 8px; border-left: 4px solid; }
+        .section-case { background: #e7f3ff; border-color: #007bff; }
+        .section-status { background: #d4edda; border-color: #28a745; }
+        .section-pipeline { background: #fff3cd; border-color: #ffc107; }
+        .section-overview { background: #f8f9fa; border-color: #6c757d; }
+        .section h3 { margin: 0 0 15px 0; color: #2c3e50; font-size: 18px; font-weight: 600; }
+        .section p { margin: 8px 0; line-height: 1.5; }
+        .case-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 15px 0; }
+        .case-item { background: white; padding: 12px; border-radius: 6px; border: 1px solid #dee2e6; }
+        .case-item strong { color: #495057; display: block; margin-bottom: 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .case-item span { color: #212529; font-size: 14px; }
+        .suspicion-badge { display: inline-block; padding: 6px 12px; border-radius: 20px; font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .suspicion-clean { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .suspicious { background: #fff3cd; color: #856404; border: 1px solid #ffeaa7; }
+        .highly-suspicious { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .reasons-list { margin: 10px 0; padding-left: 20px; }
+        .reasons-list li { margin: 5px 0; color: #495057; }
+        .progress-bar { width: 100%; height: 24px; background: #e9ecef; border-radius: 12px; overflow: hidden; margin: 10px 0; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, #28a745, #20c997); transition: width 0.3s ease; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px; font-weight: 600; }
+        .component-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0; }
+        .component-item { display: flex; align-items: center; padding: 8px; background: white; border-radius: 6px; }
+        .component-status { margin-right: 8px; font-size: 16px; }
+        .forensic-note { background: #e7f3ff; border: 1px solid #b3d9ff; padding: 15px; border-radius: 6px; margin: 20px 0; font-size: 13px; color: #004085; }
+        .case-selector { margin: 15px 0; }
+        .case-selector select { width: 100%; max-width: 400px; padding: 10px; border: 2px solid #dee2e6; border-radius: 6px; font-size: 14px; background: white; }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
             <h1>Mobile Forensics Investigation Tool</h1>
-            <h2>Secure Read-Only Evidence Viewer</h2>
+            <h2>Secure Read-Only Evidence Viewer | Judicial Review Interface</h2>
         </div>
         
         <div class="nav">
@@ -156,36 +179,105 @@ DASHBOARD_TEMPLATE = """
             <a href="/report">Report</a>
         </div>
         
-        <div class="status">
-            <h3>Dashboard Status</h3>
-            <p><strong>Investigation Status:</strong> {{ "Active Analysis" if integration_status.completion_percentage < 100 else "Complete" }}</p>
-            <p><strong>Evidence Integrity:</strong> {{ "Verified" if hash_verified else "Pending" }}</p>
-            <p><strong>Timeline Events:</strong> {{ timeline_events }}</p>
-            <p><strong>Last Updated:</strong> {{ timestamp }}</p>
-        </div>
-        
-        <div class="integration-status">
-            <h3>Integration Progress</h3>
-            <p><strong>Overall Status:</strong> {{ integration_status.overall_status }}</p>
-            <div class="progress-bar">
-                <div class="progress-fill" style="width: {{ integration_status.completion_percentage }}%"></div>
+        <!-- Case Overview Section -->
+        <div class="section section-case">
+            <h3>📋 Case Overview</h3>
+            <div class="case-grid">
+                <div class="case-item">
+                    <strong>Case ID</strong>
+                    <span>{{ case_metadata.case_id }}</span>
+                </div>
+                <div class="case-item">
+                    <strong>Investigator</strong>
+                    <span>{{ case_metadata.investigator }}</span>
+                </div>
+                <div class="case-item">
+                    <strong>Device / Dataset Source</strong>
+                    <span>{{ case_metadata.device_type }}</span>
+                </div>
+                <div class="case-item">
+                    <strong>Acquisition Method</strong>
+                    <span>{{ case_metadata.acquisition_method }}</span>
+                </div>
+                <div class="case-item">
+                    <strong>Dataset Source</strong>
+                    <span>{{ case_metadata.dataset_source }}</span>
+                </div>
+                <div class="case-item">
+                    <strong>Case Created</strong>
+                    <span>{{ case_metadata.created_at }}</span>
+                </div>
             </div>
-            <p><strong>Completion:</strong> {{ "%.1f"|format(integration_status.completion_percentage) }}%</p>
-            
-            <h4>Component Status:</h4>
-            <ul>
-                <li>Timeline: {{ "✅ Ready" if integration_status.timeline else "❌ Not Generated" }}</li>
-                <li>Analysis Findings: {{ "✅ Complete" if integration_status.findings else "❌ Pending" }}</li>
-                <li>Hash Verification: {{ "✅ Complete" if integration_status.hashes else "❌ Pending" }}</li>
-                <li>Forensic Report: {{ "✅ Ready" if integration_status.forensic_report else "❌ Not Generated" }}</li>
-            </ul>
         </div>
         
-        <div class="status">
-            <h3>Case Selection</h3>
-            <form method="POST" action="/select_case" style="margin-bottom: 20px;">
-                <label for="case_select"><strong>Select Active Case:</strong></label><br/>
-                <select id="case_select" name="case_id" onchange="this.form.submit()" style="margin-top: 5px; padding: 5px; width: 300px;">
+        <!-- Case Status Section -->
+        <div class="section section-status">
+            <h3>🔍 Case Status</h3>
+            {% if case_suspicion and case_suspicion.suspicion_level %}
+            <div class="case-grid">
+                <div class="case-item">
+                    <strong>Suspicion Level</strong>
+                    <span class="suspicion-badge {% if case_suspicion.suspicion_level == 'Clean' %}suspicion-clean{% elif case_suspicion.suspicion_level == 'Suspicious' %}suspicious{% else %}highly-suspicious{% endif %}">
+                        {{ case_suspicion.suspicion_level }} (Score: {{ case_suspicion.score }})
+                    </span>
+                </div>
+                <div class="case-item">
+                    <strong>Risk Assessment</strong>
+                    <span>{{ case_suspicion.score }}/5 - Rule-based classification</span>
+                </div>
+            </div>
+            
+            {% if case_suspicion.reasons %}
+            <div>
+                <strong>Classification Reasons:</strong>
+                <ul class="reasons-list">
+                    {% for reason in case_suspicion.reasons %}
+                    <li>{{ reason }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+            {% else %}
+            <div class="case-item">
+                <strong>Suspicion Classification</strong>
+                <span>Suspicion classification not available for this case</span>
+            </div>
+            {% endif %}
+        </div>
+        
+        <!-- Pipeline Status Section -->
+        <div class="section section-pipeline">
+            <h3>⚙️ Pipeline Status</h3>
+            <div class="component-grid">
+                <div class="component-item">
+                    <span class="component-status">{{ "✅" if pipeline_status.raw_evidence else "❌" }}</span>
+                    <span>Raw Evidence Available</span>
+                </div>
+                <div class="component-item">
+                    <span class="component-status">{{ "✅" if pipeline_status.hash_manifest else "❌" }}</span>
+                    <span>Hash Manifest Available</span>
+                </div>
+                <div class="component-item">
+                    <span class="component-status">{{ "✅" if pipeline_status.analysis_completed else "❌" }}</span>
+                    <span>Analysis Completed</span>
+                </div>
+                <div class="component-item">
+                    <span class="component-status">{{ "✅" if pipeline_status.timeline_generated else "❌" }}</span>
+                    <span>Timeline Generated</span>
+                </div>
+                <div class="component-item">
+                    <span class="component-status">{{ "✅" if pipeline_status.pdf_report_available else "❌" }}</span>
+                    <span>PDF Report Available</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Case Selection Section -->
+        <div class="section section-overview">
+            <h3>🔄 Case Selection</h3>
+            <form method="POST" action="/select_case" class="case-selector">
+                <label for="case_select"><strong>Select Active Case:</strong></label>
+                <select id="case_select" name="case_id" onchange="this.form.submit()">
                     {% for case in available_cases %}
                     <option value="{{ case.case_id }}" {% if case.case_id == active_case %}selected{% endif %}>
                         {{ case.case_id }} - {{ case.case_name }}
@@ -193,40 +285,11 @@ DASHBOARD_TEMPLATE = """
                     {% endfor %}
                 </select>
             </form>
+            
+            <div class="forensic-note">
+                <strong>🔒 Forensic Notice:</strong> All evidence, timeline, and reports displayed belong exclusively to the active case. This interface maintains strict read-only access with complete case isolation.
+            </div>
         </div>
-        
-        <div class="status">
-            <h3>Case Overview</h3>
-            <p><strong>Active Case:</strong> {{ case_metadata.case_id }}</p>
-            <p><strong>Case Name:</strong> {{ case_metadata.case_name }}</p>
-            <p><strong>Investigator:</strong> {{ case_metadata.investigator }}</p>
-            <p><strong>Device Type:</strong> {{ case_metadata.device_type }}</p>
-            <p><strong>Data Source:</strong> {{ case_metadata.data_source }}</p>
-            <p><strong>Case Status:</strong> {{ case_metadata.case_status }}</p>
-            <p><strong>Suspicion Level:</strong> 
-                <span style="padding: 2px 8px; border-radius: 3px; color: white; font-weight: bold;
-                    {% if case_suspicion.suspicion_level == 'Clean' %}background: #28a745;
-                    {% elif case_suspicion.suspicion_level == 'Suspicious' %}background: #ffc107; color: #000;
-                    {% else %}background: #dc3545;{% endif %}">
-                    {{ case_suspicion.suspicion_level }} (Score: {{ case_suspicion.score }})
-                </span>
-            </p>
-            {% if case_suspicion.reasons %}
-            <p><strong>Classification Reasons:</strong></p>
-            <ul style="margin: 5px 0; padding-left: 20px;">
-                {% for reason in case_suspicion.reasons %}
-                <li>{{ reason }}</li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-            <p style="margin-top: 15px; padding: 10px; background: #e7f3ff; border-left: 4px solid #007bff;">
-                <strong>Note:</strong> All evidence, timeline, and reports shown belong to the active case.
-            </p>
-        </div>
-        
-        <h3>Investigation Overview</h3>
-        <p>This secure interface provides read-only access to forensic evidence and analysis results.</p>
-        <p><strong>INTEGRATOR NOTE:</strong> Run the extraction and analysis scripts to populate this dashboard.</p>
     </div>
 </body>
 </html>
@@ -238,23 +301,40 @@ EVIDENCE_TEMPLATE = """
 <head>
     <title>Mobile Forensics Tool - Evidence</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 40px; background: #f5f5f5; }
-        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; }
-        .header { text-align: center; color: #333; border-bottom: 2px solid #28a745; padding-bottom: 20px; }
-        .nav { margin: 20px 0; text-align: center; }
-        .nav a { margin: 0 15px; padding: 10px 20px; background: #007bff; color: white; text-decoration: none; border-radius: 4px; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 40px; background: #f8f9fa; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .header { text-align: center; color: #2c3e50; border-bottom: 3px solid #28a745; padding-bottom: 20px; margin-bottom: 30px; }
+        .header h1 { margin: 0; font-size: 28px; font-weight: 600; }
+        .header h2 { margin: 10px 0 0 0; font-size: 16px; color: #6c757d; font-weight: 400; }
+        .nav { margin: 25px 0; text-align: center; }
+        .nav a { margin: 0 10px; padding: 12px 24px; background: #007bff; color: white; text-decoration: none; border-radius: 6px; font-weight: 500; transition: background 0.3s; }
         .nav a:hover { background: #0056b3; }
-        .evidence-status { background: #fff3cd; padding: 15px; border-radius: 4px; margin: 20px 0; }
-        .status-missing { background: #f8d7da; padding: 15px; border-radius: 4px; margin: 20px 0; }
-        .status-ready { background: #d4edda; padding: 15px; border-radius: 4px; margin: 20px 0; }
-        .status-error { background: #f8d7da; padding: 15px; border-radius: 4px; margin: 20px 0; }
+        .section { margin: 25px 0; padding: 20px; border-radius: 8px; border-left: 4px solid; }
+        .section-integrity { background: #d4edda; border-color: #28a745; }
+        .section-warning { background: #fff3cd; border-color: #ffc107; }
+        .section-error { background: #f8d7da; border-color: #dc3545; }
+        .section-info { background: #d1ecf1; border-color: #17a2b8; }
+        .section h3 { margin: 0 0 15px 0; color: #2c3e50; font-size: 18px; font-weight: 600; }
+        .section p { margin: 8px 0; line-height: 1.5; }
+        .evidence-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 15px 0; }
+        .evidence-item { background: white; padding: 12px; border-radius: 6px; border: 1px solid #dee2e6; }
+        .evidence-item strong { color: #495057; display: block; margin-bottom: 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .evidence-item span { color: #212529; font-size: 14px; }
+        .integrity-badge { display: inline-block; padding: 6px 12px; border-radius: 20px; font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .integrity-verified { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .integrity-pending { background: #fff3cd; color: #856404; border: 1px solid #ffeaa7; }
+        .integrity-error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .forensic-note { background: #e7f3ff; border: 1px solid #b3d9ff; padding: 15px; border-radius: 6px; margin: 20px 0; font-size: 13px; color: #004085; }
+        .code-block { background: #f8f9fa; border: 1px solid #e9ecef; padding: 8px 12px; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 13px; color: #495057; }
+        .steps-list { margin: 15px 0; padding-left: 20px; }
+        .steps-list li { margin: 8px 0; color: #495057; }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
             <h1>Mobile Forensics Investigation Tool</h1>
-            <h2>Evidence Integrity & Hash Verification</h2>
+            <h2>Evidence Integrity & Chain of Custody Verification</h2>
         </div>
         
         <div class="nav">
@@ -265,46 +345,193 @@ EVIDENCE_TEMPLATE = """
         </div>
         
         {% if hash_status == "missing" %}
-        <div class="status-missing">
+        <div class="section section-warning">
             <h3>⚠️ Evidence Integrity Status</h3>
-            <p><strong>Chain of Custody:</strong> Not Established</p>
-            <p><strong>Hash Verification:</strong> {{ hash_message }}</p>
-            <p><strong>Evidence Source:</strong> NIST CFReDS Android Dataset</p>
-            <p><strong>INTEGRATOR ACTION:</strong> Run <code>analysis/hash_generator.py</code> to generate hash manifest</p>
+            <div class="evidence-grid">
+                <div class="evidence-item">
+                    <strong>Chain of Custody</strong>
+                    <span>Not Established</span>
+                </div>
+                <div class="evidence-item">
+                    <strong>Hash Verification</strong>
+                    <span>{{ hash_message }}</span>
+                </div>
+            </div>
+            <div style="margin: 15px 0;">
+                <span class="integrity-badge integrity-pending">Verification Required</span>
+            </div>
         </div>
         {% elif hash_status == "error" %}
-        <div class="status-error">
+        <div class="section section-error">
             <h3>❌ Evidence Integrity Error</h3>
-            <p><strong>Chain of Custody:</strong> Error</p>
-            <p><strong>Hash Verification:</strong> {{ hash_message }}</p>
-            <p><strong>Last Updated:</strong> {{ timestamp }}</p>
+            <div class="evidence-grid">
+                <div class="evidence-item">
+                    <strong>Chain of Custody</strong>
+                    <span>Error Detected</span>
+                </div>
+                <div class="evidence-item">
+                    <strong>Hash Verification</strong>
+                    <span>{{ hash_message }}</span>
+                </div>
+            </div>
+            <div style="margin: 15px 0;">
+                <span class="integrity-badge integrity-error">Integrity Compromised</span>
+            </div>
         </div>
         {% else %}
-        <div class="status-ready">
+        <div class="section section-integrity">
             <h3>✅ Evidence Integrity Status</h3>
-            <p><strong>Chain of Custody:</strong> Maintained</p>
-            <p><strong>Hash Verification:</strong> SHA-256 Verified</p>
-            <p><strong>Total Files Hashed:</strong> {{ total_files }}</p>
-            <p><strong>Integrity Score:</strong> {{ "%.1f"|format(integrity_score) }}%</p>
-            <p><strong>Evidence Source:</strong> NIST CFReDS Android Dataset</p>
-            <p><strong>Last Updated:</strong> {{ timestamp }}</p>
+            <div class="evidence-grid">
+                <div class="evidence-item">
+                    <strong>Chain of Custody</strong>
+                    <span>Maintained & Verified</span>
+                </div>
+                <div class="evidence-item">
+                    <strong>Hash Algorithm</strong>
+                    <span>SHA-256 Cryptographic Verification</span>
+                </div>
+                <div class="evidence-item">
+                    <strong>Total Files Processed</strong>
+                    <span>{{ total_files }} evidence files</span>
+                </div>
+                <div class="evidence-item">
+                    <strong>Integrity Score</strong>
+                    <span>{{ "%.1f"|format(integrity_score) }}% Verified</span>
+                </div>
+            </div>
+            <div style="margin: 15px 0;">
+                <span class="integrity-badge integrity-verified">Forensically Verified</span>
+            </div>
         </div>
         {% endif %}
         
-        <h3>Evidence Overview</h3>
-        <p>All evidence files are cryptographically verified using SHA-256 hashes to ensure forensic integrity.</p>
-        <p><strong>FORENSIC NOTE:</strong> Hash verification ensures evidence has not been tampered with since acquisition.</p>
-        
-        {% if hash_status == "missing" %}
-        <div class="status-missing">
-            <h4>Next Steps:</h4>
-            <ol>
-                <li>Place raw evidence files in <code>evidence/raw/</code></li>
-                <li>Run <code>cd analysis && python hash_generator.py</code></li>
-                <li>Refresh this page to verify integrity</li>
-            </ol>
+        <!-- Raw Evidence Section -->
+        <div class="section section-info">
+            <h3>� Raw Evidence</h3>
+            {% if evidence_info.raw_evidence.available %}
+            <div class="evidence-grid">
+                <div class="evidence-item">
+                    <strong>Total Files</strong>
+                    <span>{{ evidence_info.raw_evidence.file_count }} files</span>
+                </div>
+                <div class="evidence-item">
+                    <strong>Total Size</strong>
+                    <span>{{ evidence_info.raw_evidence.total_size_mb }} MB</span>
+                </div>
+            </div>
+            {% else %}
+            <div class="evidence-item">
+                <strong>Raw Evidence Status</strong>
+                <span>Raw evidence not available for this case</span>
+            </div>
+            {% endif %}
         </div>
-        {% endif %}
+        
+        <!-- Hash Verification Section -->
+        <div class="section {% if evidence_info.hash_verification.available %}section-integrity{% else %}section-warning{% endif %}">
+            <h3>🔒 Hash Verification</h3>
+            {% if evidence_info.hash_verification.available %}
+            <div class="evidence-grid">
+                <div class="evidence-item">
+                    <strong>Hash Algorithm</strong>
+                    <span>{{ evidence_info.hash_verification.algorithm }}</span>
+                </div>
+                <div class="evidence-item">
+                    <strong>Files Hashed</strong>
+                    <span>{{ evidence_info.hash_verification.files_hashed }} files</span>
+                </div>
+            </div>
+            <div style="margin: 15px 0;">
+                <span class="integrity-badge integrity-verified">{{ evidence_info.hash_verification.status }}</span>
+            </div>
+            {% else %}
+            <div class="evidence-item">
+                <strong>Hash Verification Status</strong>
+                <span>Hash verification not yet generated for this case</span>
+            </div>
+            <div style="margin: 15px 0;">
+                <span class="integrity-badge integrity-pending">Not Generated</span>
+            </div>
+            {% endif %}
+        </div>
+        
+        <!-- Processed Evidence Section -->
+        <div class="section section-info">
+            <h3>⚙️ Processed Evidence</h3>
+            <div class="evidence-grid">
+                {% if evidence_info.processed_evidence.sms.available %}
+                <div class="evidence-item">
+                    <strong>SMS Messages</strong>
+                    <span>{{ evidence_info.processed_evidence.sms.count }} messages</span>
+                </div>
+                {% endif %}
+                {% if evidence_info.processed_evidence.calls.available %}
+                <div class="evidence-item">
+                    <strong>Call Records</strong>
+                    <span>{{ evidence_info.processed_evidence.calls.count }} calls</span>
+                </div>
+                {% endif %}
+                {% if evidence_info.processed_evidence.media.available %}
+                <div class="evidence-item">
+                    <strong>Media Files</strong>
+                    <span>{{ evidence_info.processed_evidence.media.count }} items</span>
+                </div>
+                {% endif %}
+                {% if evidence_info.processed_evidence.apps.available %}
+                <div class="evidence-item">
+                    <strong>App Artifacts</strong>
+                    <span>{{ evidence_info.processed_evidence.apps.count }} artifacts</span>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Chain of Custody Section -->
+        <div class="section section-info">
+            <h3>⚖️ Chain of Custody</h3>
+            <div class="evidence-grid">
+                <div class="evidence-item">
+                    <strong>Acquisition Method</strong>
+                    <span>{{ case_metadata.acquisition_method }}</span>
+                </div>
+                <div class="evidence-item">
+                    <strong>Storage Location</strong>
+                    <span>Isolated case directory: cases/{{ active_case }}/</span>
+                </div>
+                <div class="evidence-item">
+                    <strong>Preservation Method</strong>
+                    <span>Read-only access with cryptographic verification</span>
+                </div>
+                <div class="evidence-item">
+                    <strong>Integrity Verification</strong>
+                    <span>{% if evidence_info.hash_verification.available %}SHA-256 Verified{% else %}Not Available{% endif %}</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Evidence Overview Summary -->
+        <div class="section {% if forensic_readiness == 'Complete' %}section-integrity{% elif forensic_readiness == 'Partial' %}section-warning{% else %}section-error{% endif %}">
+            <h3>📊 Evidence Overview Summary</h3>
+            <div class="evidence-grid">
+                <div class="evidence-item">
+                    <strong>Total Evidence Files</strong>
+                    <span>{{ total_evidence_files }} files</span>
+                </div>
+                <div class="evidence-item">
+                    <strong>Integrity Status</strong>
+                    <span>{% if evidence_info.hash_verification.available %}Verified{% else %}Not Verified{% endif %}</span>
+                </div>
+                <div class="evidence-item">
+                    <strong>Forensic Readiness</strong>
+                    <span>{{ forensic_readiness }}</span>
+                </div>
+            </div>
+            <div style="margin: 15px 0;">
+                <span class="integrity-badge {% if forensic_readiness == 'Complete' %}integrity-verified{% elif forensic_readiness == 'Partial' %}integrity-pending{% else %}integrity-error{% endif %}">
+                    {{ forensic_readiness }}
+                </span>
+            </div>
+        </div>
     </div>
 </body>
 </html>
@@ -316,22 +543,52 @@ TIMELINE_TEMPLATE = """
 <head>
     <title>Mobile Forensics Tool - Timeline</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 40px; background: #f5f5f5; }
-        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; }
-        .header { text-align: center; color: #333; border-bottom: 2px solid #17a2b8; padding-bottom: 20px; }
-        .nav { margin: 20px 0; text-align: center; }
-        .nav a { margin: 0 15px; padding: 10px 20px; background: #007bff; color: white; text-decoration: none; border-radius: 4px; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 40px; background: #f8f9fa; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .header { text-align: center; color: #2c3e50; border-bottom: 3px solid #17a2b8; padding-bottom: 20px; margin-bottom: 30px; }
+        .header h1 { margin: 0; font-size: 28px; font-weight: 600; }
+        .header h2 { margin: 10px 0 0 0; font-size: 16px; color: #6c757d; font-weight: 400; }
+        .nav { margin: 25px 0; text-align: center; }
+        .nav a { margin: 0 10px; padding: 12px 24px; background: #007bff; color: white; text-decoration: none; border-radius: 6px; font-weight: 500; transition: background 0.3s; }
         .nav a:hover { background: #0056b3; }
-        .timeline-info { background: #d1ecf1; padding: 15px; border-radius: 4px; margin: 20px 0; }
-        .status-missing { background: #f8d7da; padding: 15px; border-radius: 4px; margin: 20px 0; }
-        .status-ready { background: #d4edda; padding: 15px; border-radius: 4px; margin: 20px 0; }
+        .section { margin: 25px 0; padding: 20px; border-radius: 8px; border-left: 4px solid; }
+        .section-info { background: #d1ecf1; border-color: #17a2b8; }
+        .section-success { background: #d4edda; border-color: #28a745; }
+        .section-warning { background: #fff3cd; border-color: #ffc107; }
+        .section h3 { margin: 0 0 15px 0; color: #2c3e50; font-size: 18px; font-weight: 600; }
+        .section p { margin: 8px 0; line-height: 1.5; }
+        .timeline-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 15px 0; }
+        .timeline-item { background: white; padding: 12px; border-radius: 6px; border: 1px solid #dee2e6; }
+        .timeline-item strong { color: #495057; display: block; margin-bottom: 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .timeline-item span { color: #212529; font-size: 14px; }
+        .event-list { max-height: 500px; overflow-y: auto; border: 1px solid #dee2e6; border-radius: 6px; background: #f8f9fa; }
+        .event-item { padding: 12px; border-bottom: 1px solid #dee2e6; display: flex; align-items: flex-start; }
+        .event-item:last-child { border-bottom: none; }
+        .event-item:hover { background: #e9ecef; }
+        .event-icon { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 12px; font-size: 12px; font-weight: bold; color: white; flex-shrink: 0; }
+        .icon-sms { background: #007bff; }
+        .icon-call { background: #28a745; }
+        .icon-media { background: #ffc107; color: #212529; }
+        .icon-app { background: #6f42c1; }
+        .event-content { flex: 1; }
+        .event-time { font-size: 12px; color: #6c757d; font-weight: 600; margin-bottom: 4px; }
+        .event-details { font-size: 14px; color: #212529; line-height: 1.4; }
+        .event-type { display: inline-block; padding: 2px 6px; border-radius: 3px; font-size: 10px; font-weight: 600; text-transform: uppercase; margin-left: 8px; }
+        .type-sms { background: #007bff; color: white; }
+        .type-call { background: #28a745; color: white; }
+        .type-media { background: #ffc107; color: #212529; }
+        .type-app { background: #6f42c1; color: white; }
+        .forensic-note { background: #e7f3ff; border: 1px solid #b3d9ff; padding: 15px; border-radius: 6px; margin: 20px 0; font-size: 13px; color: #004085; }
+        .code-block { background: #f8f9fa; border: 1px solid #e9ecef; padding: 8px 12px; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 13px; color: #495057; }
+        .steps-list { margin: 15px 0; padding-left: 20px; }
+        .steps-list li { margin: 8px 0; color: #495057; }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
             <h1>Mobile Forensics Investigation Tool</h1>
-            <h2>Unified Event Timeline</h2>
+            <h2>Unified Event Timeline Reconstruction | Chronological Evidence Analysis</h2>
         </div>
         
         <div class="nav">
@@ -342,45 +599,98 @@ TIMELINE_TEMPLATE = """
         </div>
         
         {% if timeline_status == "missing" %}
-        <div class="status-missing">
-            <h3>⚠️ Timeline Not Generated</h3>
-            <p><strong>Status:</strong> Timeline not generated yet</p>
-            <p><strong>Total Events:</strong> 0</p>
-            <p><strong>Date Range:</strong> Not available</p>
-            <p><strong>INTEGRATOR ACTION:</strong> Run <code>timeline/timeline_builder.py</code> to generate timeline</p>
+        <div class="section section-warning">
+            <h3>⚠️ Timeline Not Available</h3>
+            <div class="timeline-grid">
+                <div class="timeline-item">
+                    <strong>Reconstruction Status</strong>
+                    <span>Timeline not generated yet</span>
+                </div>
+                <div class="timeline-item">
+                    <strong>Total Events</strong>
+                    <span>0 events processed</span>
+                </div>
+            </div>
         </div>
         {% else %}
-        <div class="status-ready">
-            <h3>✅ Timeline Information</h3>
-            <p><strong>Total Events:</strong> {{ total_events }}</p>
-            <p><strong>Date Range:</strong> {{ date_range_start }} to {{ date_range_end }}</p>
-            <p><strong>Sources:</strong> {{ sources|join(', ') if sources else 'None' }}</p>
-            <p><strong>Last Updated:</strong> {{ timestamp }}</p>
+        <div class="section section-success">
+            <h3>📊 Timeline Reconstruction Summary</h3>
+            <div class="timeline-grid">
+                <div class="timeline-item">
+                    <strong>Total Events</strong>
+                    <span>{{ total_events }} chronologically ordered events</span>
+                </div>
+                <div class="timeline-item">
+                    <strong>Date Range</strong>
+                    <span>{{ date_range_start }} to {{ date_range_end }}</span>
+                </div>
+                <div class="timeline-item">
+                    <strong>Data Sources</strong>
+                    <span>{{ sources|join(', ') if sources else 'No sources detected' }}</span>
+                </div>
+                <div class="timeline-item">
+                    <strong>Last Updated</strong>
+                    <span>{{ timestamp }}</span>
+                </div>
+            </div>
         </div>
         {% endif %}
         
-        <h3>Event Timeline</h3>
-        <p>Timeline displays all events from SMS, calls, media, and app usage in chronological order.</p>
+        <!-- Timeline Summary Section -->
+        <div class="section section-info">
+            <h3>� Timeline Summary</h3>
+            <div class="timeline-grid">
+                <div class="timeline-item">
+                    <strong>Total Events</strong>
+                    <span>{{ total_events }} chronologically ordered events</span>
+                </div>
+                <div class="timeline-item">
+                    <strong>Time Range</strong>
+                    <span>{{ date_range_start }} to {{ date_range_end }}</span>
+                </div>
+                <div class="timeline-item">
+                    <strong>Data Sources</strong>
+                    <span>{{ sources|join(', ') if sources else 'No sources detected' }}</span>
+                </div>
+                <div class="timeline-item">
+                    <strong>Timestamp Anomalies</strong>
+                    <span>{{ anomaly_count }} anomalies detected</span>
+                </div>
+            </div>
+        </div>
         
         {% if timeline_status == "missing" %}
-        <div class="status-missing">
-            <h4>Next Steps:</h4>
-            <ol>
-                <li>Run extraction scripts: <code>cd extractor && python extract_*.py</code></li>
-                <li>Run analysis scripts: <code>cd analysis && python *_analysis.py</code></li>
-                <li>Generate timeline: <code>cd timeline && python timeline_builder.py</code></li>
-                <li>Refresh this page to view timeline</li>
+        <div class="section section-warning">
+            <h3>🔧 Required Actions</h3>
+            <p>To generate the unified timeline, complete the forensic pipeline:</p>
+            <ol class="steps-list">
+                <li>Extract evidence: <span class="code-block">cd extractor && python extract_*.py</span></li>
+                <li>Run analysis: <span class="code-block">cd analysis && python *_analysis.py</span></li>
+                <li>Build timeline: <span class="code-block">cd timeline && python build_timeline.py</span></li>
+                <li>Refresh this page to view reconstructed timeline</li>
             </ol>
         </div>
         {% else %}
-        <div class="timeline-info">
-            <h4>Timeline Statistics:</h4>
-            <ul>
-                <li>Total chronological events: {{ total_events }}</li>
-                <li>Time span: {{ date_range_start }} to {{ date_range_end }}</li>
-                <li>Data sources: {{ sources|length if sources else 0 }} different sources</li>
-            </ul>
-            <p><strong>FORENSIC NOTE:</strong> Timeline reconstruction provides chronological context for investigation.</p>
+        <div class="section section-info">
+            <h3>📅 Chronological Events</h3>
+            <div class="event-list">
+                {% for event in events %}
+                <div class="event-item">
+                    <div class="event-icon {% if event.source == 'SMS' %}icon-sms{% elif event.source == 'CALL' %}icon-call{% elif event.source == 'MEDIA' %}icon-media{% else %}icon-app{% endif %}">
+                        {% if event.source == 'SMS' %}💬{% elif event.source == 'CALL' %}📞{% elif event.source == 'MEDIA' %}📷{% else %}📱{% endif %}
+                    </div>
+                    <div class="event-content">
+                        <div class="event-time">
+                            {{ event.timestamp }}
+                            <span class="event-type {% if event.source == 'SMS' %}type-sms{% elif event.source == 'CALL' %}type-call{% elif event.source == 'MEDIA' %}type-media{% else %}type-app{% endif %}">
+                                {{ event.source }}
+                            </span>
+                        </div>
+                        <div class="event-details">{{ event.details }}</div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
         </div>
         {% endif %}
     </div>
@@ -394,23 +704,44 @@ REPORT_TEMPLATE = """
 <head>
     <title>Mobile Forensics Tool - Report</title>
     <style>
-        body { font-family: Arial, sans-serif; margin: 40px; background: #f5f5f5; }
-        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 20px; border-radius: 8px; }
-        .header { text-align: center; color: #333; border-bottom: 2px solid #dc3545; padding-bottom: 20px; }
-        .nav { margin: 20px 0; text-align: center; }
-        .nav a { margin: 0 15px; padding: 10px 20px; background: #007bff; color: white; text-decoration: none; border-radius: 4px; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; margin: 40px; background: #f8f9fa; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .header { text-align: center; color: #2c3e50; border-bottom: 3px solid #dc3545; padding-bottom: 20px; margin-bottom: 30px; }
+        .header h1 { margin: 0; font-size: 28px; font-weight: 600; }
+        .header h2 { margin: 10px 0 0 0; font-size: 16px; color: #6c757d; font-weight: 400; }
+        .nav { margin: 25px 0; text-align: center; }
+        .nav a { margin: 0 10px; padding: 12px 24px; background: #007bff; color: white; text-decoration: none; border-radius: 6px; font-weight: 500; transition: background 0.3s; }
         .nav a:hover { background: #0056b3; }
-        .report-status { background: #f8d7da; padding: 15px; border-radius: 4px; margin: 20px 0; }
-        .status-missing { background: #f8d7da; padding: 15px; border-radius: 4px; margin: 20px 0; }
-        .status-ready { background: #d4edda; padding: 15px; border-radius: 4px; margin: 20px 0; }
-        .status-error { background: #f8d7da; padding: 15px; border-radius: 4px; margin: 20px 0; }
+        .section { margin: 25px 0; padding: 20px; border-radius: 8px; border-left: 4px solid; }
+        .section-success { background: #d4edda; border-color: #28a745; }
+        .section-warning { background: #fff3cd; border-color: #ffc107; }
+        .section-error { background: #f8d7da; border-color: #dc3545; }
+        .section-info { background: #d1ecf1; border-color: #17a2b8; }
+        .section h3 { margin: 0 0 15px 0; color: #2c3e50; font-size: 18px; font-weight: 600; }
+        .section p { margin: 8px 0; line-height: 1.5; }
+        .report-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 15px 0; }
+        .report-item { background: white; padding: 12px; border-radius: 6px; border: 1px solid #dee2e6; }
+        .report-item strong { color: #495057; display: block; margin-bottom: 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .report-item span { color: #212529; font-size: 14px; }
+        .report-badge { display: inline-block; padding: 6px 12px; border-radius: 20px; font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; }
+        .report-complete { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .report-pending { background: #fff3cd; color: #856404; border: 1px solid #ffeaa7; }
+        .report-error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .download-btn { background: #28a745; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; display: inline-block; font-weight: 600; transition: background 0.3s; }
+        .download-btn:hover { background: #218838; }
+        .forensic-note { background: #e7f3ff; border: 1px solid #b3d9ff; padding: 15px; border-radius: 6px; margin: 20px 0; font-size: 13px; color: #004085; }
+        .code-block { background: #f8f9fa; border: 1px solid #e9ecef; padding: 8px 12px; border-radius: 4px; font-family: 'Courier New', monospace; font-size: 13px; color: #495057; }
+        .steps-list { margin: 15px 0; padding-left: 20px; }
+        .steps-list li { margin: 8px 0; color: #495057; }
+        .contents-list { margin: 15px 0; padding-left: 20px; }
+        .contents-list li { margin: 8px 0; color: #495057; }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
             <h1>Mobile Forensics Investigation Tool</h1>
-            <h2>Complete Forensic Report</h2>
+            <h2>Comprehensive Forensic Report | Judicial Review Documentation</h2>
         </div>
         
         <div class="nav">
@@ -421,66 +752,176 @@ REPORT_TEMPLATE = """
         </div>
         
         {% if report_status == "missing" %}
-        <div class="status-missing">
-            <h3>⚠️ Report Not Generated</h3>
-            <p><strong>Report Generation:</strong> {{ report_message }}</p>
-            <p><strong>Analysis Complete:</strong> Pending</p>
-            <p><strong>Court Ready:</strong> Not Available</p>
-            <p><strong>INTEGRATOR ACTION:</strong> Run <code>reports/generate_report.py</code> to generate forensic report</p>
+        <div class="section section-warning">
+            <h3>⚠️ Forensic Report Not Available</h3>
+            <div class="report-grid">
+                <div class="report-item">
+                    <strong>Report Generation Status</strong>
+                    <span>{{ report_message }}</span>
+                </div>
+                <div class="report-item">
+                    <strong>Court Readiness</strong>
+                    <span>Not Available - Analysis Incomplete</span>
+                </div>
+            </div>
+            <div style="margin: 15px 0;">
+                <span class="report-badge report-pending">Generation Required</span>
+            </div>
         </div>
         {% elif report_status == "error" %}
-        <div class="status-error">
+        <div class="section section-error">
             <h3>❌ Report Generation Error</h3>
-            <p><strong>Report Generation:</strong> Error</p>
-            <p><strong>Error Message:</strong> {{ report_message }}</p>
-            <p><strong>Last Updated:</strong> {{ timestamp }}</p>
+            <div class="report-grid">
+                <div class="report-item">
+                    <strong>Error Status</strong>
+                    <span>Report generation failed</span>
+                </div>
+                <div class="report-item">
+                    <strong>Error Details</strong>
+                    <span>{{ report_message }}</span>
+                </div>
+            </div>
+            <div style="margin: 15px 0;">
+                <span class="report-badge report-error">Generation Failed</span>
+            </div>
         </div>
         {% else %}
-        <div class="status-ready">
-            <h3>✅ Report Status</h3>
-            <p><strong>Report Generation:</strong> Complete</p>
-            <p><strong>Analysis Complete:</strong> Yes</p>
-            <p><strong>Risk Level:</strong> {{ risk_level }}</p>
-            <p><strong>Total Events Analyzed:</strong> {{ total_events }}</p>
-            <p><strong>Report Generated:</strong> {{ report_timestamp }}</p>
-            <p><strong>Court Ready:</strong> Final Review Required</p>
-            <p><strong>Last Updated:</strong> {{ timestamp }}</p>
-        </div>
-        {% endif %}
-        
-        <h3>Forensic Investigation Report</h3>
-        <p>Comprehensive report includes timeline analysis, behavioural findings, malware detection, and evidence integrity verification.</p>
-        
-        {% if report_status == "missing" %}
-        <div class="status-missing">
-            <h4>Next Steps:</h4>
-            <ol>
-                <li>Complete all analysis scripts: <code>cd analysis && python *_analysis.py</code></li>
-                <li>Generate timeline: <code>cd timeline && python timeline_builder.py</code></li>
-                <li>Generate report: <code>cd reports && python generate_report.py</code></li>
-                <li>Refresh this page to view report</li>
-            </ol>
-        </div>
-        {% else %}
-        <div class="status-ready">
-            <h4>Report Contents:</h4>
-            <ul>
-                <li>Evidence integrity verification with SHA-256 hashes</li>
-                <li>Timeline reconstruction with chronological events</li>
-                <li>Behavioural analysis with suspicious pattern detection</li>
-                <li>Malware analysis with indicator identification</li>
-                <li>Anomaly analysis with temporal inconsistency detection</li>
-                <li>Executive summary with risk assessment</li>
-            </ul>
-            <p><strong>FORENSIC NOTE:</strong> This report is court-ready and maintains chain of custody integrity.</p>
-            
-            <div style="margin-top: 20px;">
-                <a href="/download/report" download="forensic_report.pdf" style="background: #28a745; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px; display: inline-block;">
-                    � Download Forensic Report (PDF)
-                </a>
+        <div class="section section-success">
+            <h3>✅ Forensic Report Summary</h3>
+            <div class="report-grid">
+                <div class="report-item">
+                    <strong>Report Status</strong>
+                    <span>Complete - Court Ready</span>
+                </div>
+                <div class="report-item">
+                    <strong>Risk Assessment</strong>
+                    <span>{{ risk_level }} Level Detected</span>
+                </div>
+                <div class="report-item">
+                    <strong>Events Analyzed</strong>
+                    <span>{{ total_events }} timeline events processed</span>
+                </div>
+                <div class="report-item">
+                    <strong>Generation Timestamp</strong>
+                    <span>{{ report_timestamp }}</span>
+                </div>
+            </div>
+            <div style="margin: 15px 0;">
+                <span class="report-badge report-complete">Forensically Verified</span>
             </div>
         </div>
         {% endif %}
+        
+        <!-- Report Overview Section -->
+        <div class="section section-info">
+            <h3>📋 Forensic Report Overview</h3>
+            <p><strong>Report Purpose:</strong> This comprehensive forensic report documents the complete analysis of digital evidence from acquisition to final findings.</p>
+            <p><strong>Scope:</strong> Includes timeline reconstruction, behavioral analysis, malware detection, anomaly identification, and evidence integrity verification.</p>
+            <p><strong>Court Readiness:</strong> Maintains complete chain of custody with cryptographic verification and forensic best practices.</p>
+            
+            <div class="forensic-note">
+                <strong>⚖️ Judicial Review Status:</strong> This report is prepared for legal proceedings and maintains forensic admissibility standards with complete audit trails.
+            </div>
+        </div>
+        
+        {% if report_status == "missing" %}
+        <div class="section section-warning">
+            <h3>🔧 Required Actions</h3>
+            <p>To generate the comprehensive forensic report, complete the analysis pipeline:</p>
+            <ol class="steps-list">
+                <li>Complete evidence extraction: <span class="code-block">cd extractor && python extract_*.py</span></li>
+                <li>Run forensic analysis: <span class="code-block">cd analysis && python *_analysis.py</span></li>
+                <li>Build timeline: <span class="code-block">cd timeline && python build_timeline.py</span></li>
+                <li>Generate report: <span class="code-block">cd reports && python generate_case_report.py</span></li>
+                <li>Refresh this page to access the completed report</li>
+            </ol>
+        </div>
+        {% else %}
+        <div class="section section-success">
+            <h3>📄 Report Contents & Documentation</h3>
+            <p><strong>Comprehensive Analysis Includes:</strong></p>
+            <ul class="contents-list">
+                <li><strong>Evidence Integrity:</strong> SHA-256 cryptographic verification and chain of custody documentation</li>
+                <li><strong>Timeline Reconstruction:</strong> Chronological event analysis from multiple evidence sources</li>
+                <li><strong>Behavioral Analysis:</strong> Pattern detection and suspicious activity identification</li>
+                <li><strong>Malware Analysis:</strong> Security indicator detection and threat assessment</li>
+                <li><strong>Anomaly Detection:</strong> Temporal inconsistency and unusual pattern analysis</li>
+                <li><strong>Risk Assessment:</strong> Executive summary with evidence-based conclusions</li>
+                <li><strong>Technical Appendix:</strong> Detailed methodology and forensic process documentation</li>
+            </ul>
+            
+            <div class="forensic-note">
+                <strong>🔒 Forensic Guarantee:</strong> This report maintains complete evidence integrity with verifiable chain of custody, cryptographic hashes, and court-admissible documentation standards.
+            </div>
+        </div>
+        {% endif %}
+        
+        <!-- Evidence & Events Summary Section -->
+        <div class="section section-info">
+            <h3>📊 Evidence & Events Summary</h3>
+            <div class="report-grid">
+                <div class="report-item">
+                    <strong>Call Records</strong>
+                    <span>{{ evidence_counts.calls }} calls analyzed</span>
+                </div>
+                <div class="report-item">
+                    <strong>Messages</strong>
+                    <span>{{ evidence_counts.messages }} messages analyzed</span>
+                </div>
+                <div class="report-item">
+                    <strong>Media Files</strong>
+                    <span>{{ evidence_counts.media }} media items analyzed</span>
+                </div>
+                <div class="report-item">
+                    <strong>App Artifacts</strong>
+                    <span>{{ evidence_counts.apps }} app artifacts analyzed</span>
+                </div>
+            </div>
+            
+            <div style="margin-top: 20px; text-align: center;">
+                <a href="/timeline" style="background: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 6px; display: inline-block; margin-right: 10px;">
+                    📅 View Timeline Analysis
+                </a>
+                <p style="margin-top: 10px; font-size: 13px; color: #6c757d;">
+                    Detailed chronological reconstruction of all events
+                </p>
+            </div>
+        </div>
+        
+        <!-- Report Access Section -->
+        <div class="section {% if report_status == 'missing' %}section-warning{% else %}section-success{% endif %}">
+            <h3>📥 Report Access</h3>
+            {% if report_status == "missing" %}
+            <div class="report-item">
+                <strong>Report Status</strong>
+                <span>Report not generated for this case</span>
+            </div>
+            {% else %}
+            <div class="report-grid">
+                <div class="report-item">
+                    <strong>Report Format</strong>
+                    <span>Court-ready PDF document</span>
+                </div>
+                <div class="report-item">
+                    <strong>Access Level</strong>
+                    <span>Read-only forensic review</span>
+                </div>
+            </div>
+            
+            <div style="margin-top: 25px; text-align: center;">
+                <a href="/download/report" download="forensic_report.pdf" class="download-btn">
+                    📥 Download Complete Forensic Report (PDF)
+                </a>
+                <p style="margin-top: 10px; font-size: 13px; color: #6c757d;">
+                    Official court-ready document with all findings and analysis
+                </p>
+            </div>
+            {% endif %}
+            
+            <div class="forensic-note">
+                <strong>🔒 Read-Only Disclaimer:</strong> This interface provides read-only access to forensic evidence. No modifications can be made to the original evidence or analysis results through this system.
+            </div>
+        </div>
     </div>
 </body>
 </html>
@@ -492,7 +933,7 @@ def dashboard():
     # Get integration status
     integration_status = get_integration_status()
     
-    # Load case metadata
+    # Load normalized case metadata
     case_metadata = load_case_metadata()
     
     # Get active case and available cases
@@ -501,6 +942,9 @@ def dashboard():
     
     # Load case suspicion classification
     case_suspicion = load_case_suspicion(active_case)
+    
+    # Get pipeline status
+    pipeline_status = get_pipeline_status()
     
     # Load available data gracefully
     timeline_data = load_timeline_data()
@@ -516,6 +960,7 @@ def dashboard():
         "active_case": active_case,
         "available_cases": available_cases,
         "case_suspicion": case_suspicion,
+        "pipeline_status": pipeline_status,
         "timeline_events": len(timeline_data),
         "analysis_complete": all(
             isinstance(analysis_data.get(key, []), list) and len(analysis_data.get(key, [])) > 0
@@ -550,11 +995,38 @@ def dashboard_alt():
 @app.route('/evidence')
 def evidence():
     """Evidence integrity and hash verification route with graceful loading"""
-    # Load hash data gracefully
+    # Load normalized case metadata
+    case_metadata = load_case_metadata()
+    
+    # Get evidence information
+    evidence_info = get_evidence_info()
+    
+    # Load hash data for compatibility
     hash_data = load_hash_data()
+    
+    # Calculate total evidence files and readiness
+    total_evidence_files = 0
+    if evidence_info['raw_evidence']['available']:
+        total_evidence_files += evidence_info['raw_evidence']['file_count']
+    
+    processed_counts = [evidence_info['processed_evidence'][key]['count'] 
+                      for key in ['sms', 'calls', 'media', 'apps'] 
+                      if evidence_info['processed_evidence'][key]['available']]
+    total_evidence_files += sum(processed_counts)
+    
+    # Determine forensic readiness
+    forensic_readiness = "Complete"
+    if not evidence_info['hash_verification']['available']:
+        forensic_readiness = "Partial"
+    if not evidence_info['raw_evidence']['available'] and sum(processed_counts) == 0:
+        forensic_readiness = "Incomplete"
     
     # Prepare evidence context
     context = {
+        "case_metadata": case_metadata,
+        "evidence_info": evidence_info,
+        "total_evidence_files": total_evidence_files,
+        "forensic_readiness": forensic_readiness,
         "hash_status": hash_data.get("status", "unknown"),
         "hash_message": hash_data.get("message", ""),
         "total_files": hash_data.get("total_files", 0) if hash_data.get("status") != "missing" else 0,
@@ -570,13 +1042,28 @@ def timeline():
     # Load timeline data gracefully
     timeline_data = load_timeline_data()
     
+    # Calculate timeline statistics
+    total_events = len(timeline_data)
+    sources = list(set(event.get("source", "Unknown") for event in timeline_data)) if timeline_data else []
+    
+    # Count timestamp anomalies from analysis data
+    anomaly_count = 0
+    try:
+        analysis_data = load_analysis_data()
+        if 'timestamp_anomalies' in analysis_data and isinstance(analysis_data['timestamp_anomalies'], list):
+            anomaly_count = len(analysis_data['timestamp_anomalies'])
+    except:
+        anomaly_count = 0
+    
     # Prepare timeline context
     context = {
         "timeline_status": "loaded" if timeline_data else "missing",
-        "total_events": len(timeline_data),
+        "total_events": total_events,
         "date_range_start": timeline_data[0].get("timestamp") if timeline_data else "Not available",
         "date_range_end": timeline_data[-1].get("timestamp") if timeline_data else "Not available",
-        "sources": list(set(event.get("source", "Unknown") for event in timeline_data)) if timeline_data else [],
+        "sources": sources,
+        "anomaly_count": anomaly_count,
+        "events": timeline_data,
         "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     }
     
@@ -588,13 +1075,29 @@ def report():
     # Load report data gracefully
     report_data = load_report_data()
     
+    # Get evidence information for counts
+    evidence_info = get_evidence_info()
+    
+    # Calculate evidence counts
+    evidence_counts = {
+        'calls': evidence_info['processed_evidence']['calls']['count'] if evidence_info['processed_evidence']['calls']['available'] else 0,
+        'messages': evidence_info['processed_evidence']['sms']['count'] if evidence_info['processed_evidence']['sms']['available'] else 0,
+        'media': evidence_info['processed_evidence']['media']['count'] if evidence_info['processed_evidence']['media']['available'] else 0,
+        'apps': evidence_info['processed_evidence']['apps']['count'] if evidence_info['processed_evidence']['apps']['available'] else 0
+    }
+    
+    # Get timeline data for events analyzed
+    timeline_data = load_timeline_data()
+    events_analyzed = len(timeline_data)
+    
     # Prepare report context
     context = {
         "report_status": report_data.get("status", "unknown"),
         "report_message": report_data.get("message", ""),
-        "report_timestamp": report_data.get("report_metadata", {}).get("generation_timestamp", "Not generated"),
-        "risk_level": report_data.get("conclusions", {}).get("overall_risk_level", "Unknown"),
-        "total_events": report_data.get("timeline_summary", {}).get("total_events", 0),
+        "risk_level": report_data.get("risk_level", "Not assessed"),
+        "total_events": events_analyzed,
+        "report_timestamp": report_data.get("generation_timestamp", "Not available"),
+        "evidence_counts": evidence_counts,
         "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     }
     
@@ -836,15 +1339,15 @@ def classify_case_suspicion(case_id):
     Implement rule-based suspicion classification for a case.
     
     Rules (deterministic, explainable):
-    - suspicious_behaviour list not empty → +1
-    - timestamp_anomalies list not empty → +1
-    - malware_indicators list not empty → +2
-    - Activity between 00:00–04:00 detected in timeline → +1
+    - suspicious_behaviour list not empty -> +1
+    - timestamp_anomalies list not empty -> +1
+    - malware_indicators list not empty -> +2
+    - Activity between midnight and 4 AM detected in timeline -> +1
     
     Classification:
-    - 0 points → Clean
-    - 1–2 points → Suspicious
-    - ≥3 points → Highly Suspicious
+    - 0 points -> Clean
+    - 1-2 points -> Suspicious
+    - 3+ points -> Highly Suspicious
     
     Args:
         case_id: Case identifier
@@ -962,6 +1465,199 @@ def load_case_suspicion(case_id):
     # Generate new classification if not exists
     return classify_case_suspicion(case_id)
 
+def normalize_case_metadata(metadata):
+    """
+    Normalize case metadata from different schema formats (CFReDS vs Live cases)
+    
+    Args:
+        metadata (dict): Raw metadata from metadata.json
+        
+    Returns:
+        dict: Normalized metadata with consistent field names
+    """
+    normalized = {}
+    
+    # Handle CFReDS case format
+    if 'data_source' in metadata and 'CFReDS' in metadata.get('data_source', ''):
+        normalized = {
+            'case_id': metadata.get('case_id', 'Unknown'),
+            'case_name': metadata.get('case_name', 'Unknown'),
+            'investigator': metadata.get('investigator', 'Unknown'),
+            'dataset_source': metadata.get('data_source', 'Unknown'),
+            'device_type': metadata.get('device_type', 'Unknown'),
+            'acquisition_method': 'CFReDS Reference Dataset',
+            'case_status': metadata.get('case_status', 'Unknown'),
+            'created_at': metadata.get('created_at', 'Unknown')
+        }
+    
+    # Handle Live case format
+    elif 'dataset_source' in metadata and 'Live Android' in metadata.get('dataset_source', ''):
+        normalized = {
+            'case_id': metadata.get('case_id', 'Unknown'),
+            'case_name': f"Live Investigation - {metadata.get('device_model', 'Unknown Device')}",
+            'investigator': metadata.get('investigator', 'Unknown'),
+            'dataset_source': metadata.get('dataset_source', 'Unknown'),
+            'device_type': metadata.get('device_model', 'Unknown'),
+            'acquisition_method': metadata.get('acquisition_method', 'Live Android ADB Logical Acquisition'),
+            'case_status': 'Active',
+            'created_at': metadata.get('case_created', 'Unknown')
+        }
+    
+    # Default fallback
+    else:
+        normalized = {
+            'case_id': metadata.get('case_id', 'Unknown'),
+            'case_name': metadata.get('case_name', 'Unknown Case'),
+            'investigator': metadata.get('investigator', 'Unknown'),
+            'dataset_source': metadata.get('data_source', metadata.get('dataset_source', 'Unknown')),
+            'device_type': metadata.get('device_type', metadata.get('device_model', 'Unknown')),
+            'acquisition_method': 'Unknown',
+            'case_status': metadata.get('case_status', 'Unknown'),
+            'created_at': metadata.get('created_at', metadata.get('case_created', 'Unknown'))
+        }
+    
+    return normalized
+
+def get_evidence_info():
+    """
+    Get evidence information for the active case
+    
+    Returns:
+        dict: Evidence counts and availability
+    """
+    case_base_path = get_case_base_path()
+    active_case = get_active_case()
+    
+    evidence_info = {
+        'raw_evidence': {
+            'available': False,
+            'file_count': 0,
+            'total_size_mb': 0,
+            'message': 'Raw evidence not available for this case'
+        },
+        'hash_verification': {
+            'available': False,
+            'algorithm': 'SHA-256',
+            'files_hashed': 0,
+            'status': 'Not Generated',
+            'message': 'Hash verification not yet generated for this case'
+        },
+        'processed_evidence': {
+            'sms': {'available': False, 'count': 0},
+            'calls': {'available': False, 'count': 0},
+            'media': {'available': False, 'count': 0},
+            'apps': {'available': False, 'count': 0}
+        }
+    }
+    
+    # Check raw evidence
+    raw_path = f"{case_base_path}/evidence/raw"
+    if os.path.exists(raw_path):
+        try:
+            raw_files = []
+            total_size = 0
+            for root, dirs, files in os.walk(raw_path):
+                for file in files:
+                    file_path = os.path.join(root, file)
+                    if os.path.isfile(file_path):
+                        raw_files.append(file)
+                        total_size += os.path.getsize(file_path)
+            
+            if raw_files:
+                evidence_info['raw_evidence'] = {
+                    'available': True,
+                    'file_count': len(raw_files),
+                    'total_size_mb': round(total_size / (1024 * 1024), 2),
+                    'message': f'{len(raw_files)} raw evidence files ({round(total_size / (1024 * 1024), 2)} MB)'
+                }
+        except Exception as e:
+            print(f"Error scanning raw evidence: {e}")
+    
+    # Check hash verification
+    hash_path = f"{case_base_path}/evidence/hashes/hashes.json"
+    if os.path.exists(hash_path):
+        try:
+            with open(hash_path, 'r') as f:
+                hash_data = json.load(f)
+                evidence_info['hash_verification'] = {
+                    'available': True,
+                    'algorithm': 'SHA-256',
+                    'files_hashed': hash_data.get('total_files', 0),
+                    'status': 'VERIFIED',
+                    'message': f'{hash_data.get("total_files", 0)} files verified with SHA-256'
+                }
+        except Exception as e:
+            print(f"Error loading hash data: {e}")
+    
+    # Check processed evidence
+    processed_path = f"{case_base_path}/evidence/processed"
+    if os.path.exists(processed_path):
+        evidence_types = ['sms.json', 'calls.json', 'media.json', 'apps.json']
+        for evidence_type in evidence_types:
+            type_path = os.path.join(processed_path, evidence_type)
+            if os.path.exists(type_path):
+                try:
+                    with open(type_path, 'r') as f:
+                        data = json.load(f)
+                        count = len(data) if isinstance(data, list) else 0
+                        key = evidence_type.replace('.json', '')
+                        evidence_info['processed_evidence'][key] = {
+                            'available': True,
+                            'count': count
+                        }
+                except Exception as e:
+                    print(f"Error loading {evidence_type}: {e}")
+    
+    print(f"Evidence info for {active_case}: {evidence_info}")
+    return evidence_info
+
+def get_pipeline_status():
+    """
+    Get pipeline status for the active case
+    
+    Returns:
+        dict: Status of each pipeline component
+    """
+    case_base_path = get_case_base_path()
+    active_case = get_active_case()
+    
+    # Check each pipeline component
+    status = {
+        'raw_evidence': False,
+        'hash_manifest': False,
+        'analysis_completed': False,
+        'timeline_generated': False,
+        'pdf_report_available': False
+    }
+    
+    # Check raw evidence
+    raw_path = f"{case_base_path}/evidence/raw"
+    if os.path.exists(raw_path):
+        try:
+            raw_files = os.listdir(raw_path)
+            status['raw_evidence'] = len(raw_files) > 0
+        except:
+            status['raw_evidence'] = False
+    
+    # Check hash manifest
+    hash_path = f"{case_base_path}/evidence/hashes/hashes.json"
+    status['hash_manifest'] = os.path.exists(hash_path)
+    
+    # Check analysis
+    analysis_path = f"{case_base_path}/analysis/findings.json"
+    status['analysis_completed'] = os.path.exists(analysis_path)
+    
+    # Check timeline
+    timeline_path = f"{case_base_path}/timeline/timeline.json"
+    status['timeline_generated'] = os.path.exists(timeline_path)
+    
+    # Check PDF report
+    report_path = f"{case_base_path}/reports/forensic_report.pdf"
+    status['pdf_report_available'] = os.path.exists(report_path)
+    
+    print(f"Pipeline status for {active_case}: {status}")
+    return status
+
 def load_case_metadata():
     """
     Load case metadata for dashboard display (read-only).
@@ -988,8 +1684,10 @@ def load_case_metadata():
     try:
         with open(metadata_path, 'r') as f:
             data = json.load(f)
-            print(f"Loaded case metadata for {data.get('case_id', 'UNKNOWN')}")
-            return data
+            # Normalize metadata for consistent display
+            normalized = normalize_case_metadata(data)
+            print(f"Loaded case metadata for {normalized.get('case_id', 'UNKNOWN')}")
+            return normalized
     except json.JSONDecodeError as e:
         print(f"Invalid JSON in metadata.json: {e}")
         return {

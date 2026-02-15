@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis Results - Forensi-Guard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🔍 Forensi-Guard</h1>
+            <p class="subtitle">Analysis Results</p>
+        </div>
+
+        <div id="reportContent">
+            <!-- Content will be populated by JavaScript -->
+        </div>
+
+        <div class="card">
+            <button class="btn-secondary" onclick="window.location.href='/'">
+                ← Back to Home
+            </button>
+        </div>
+
+        <footer>
+            <p>AI-generated insights. Evidence integrity preserved.</p>
+            <p class="small">Prototype demonstration interface</p>
+        </footer>
+    </div>
+
+    <script>
+        // Load report, language, and case info from sessionStorage
+        const reportData = sessionStorage.getItem('forensic_report');
+        const reportLanguage = sessionStorage.getItem('report_language') || 'en';
+        const caseName = sessionStorage.getItem('case_name') || 'Unknown';
+        const caseLabel = sessionStorage.getItem('case_label') || caseName;
+
+        if (!reportData) {
+            document.getElementById('reportContent').innerHTML = `
+                <div class="card error">
+                    <h2>No Report Available</h2>
+                    <p>Please run an analysis first.</p>
+                    <button class="btn-primary" onclick="window.location.href='/'">
+                        Go to Home
+                    </button>
+                </div>
+            `;
+        } else {
+            const report = JSON.parse(reportData);
+            displayReport(report, reportLanguage, caseName, caseLabel);
+        }
+
+        function displayReport(report, language, caseName, caseLabel) {
+            const sections = report.sections;
+            const execSummary = sections.executive_summary;
+            const riskAssessment = execSummary.risk_assessment;
+            const timeline = sections.timeline_narrative;
+            const recommendations = sections.safety_recommendations;
+
+            // Language names
+            const languageNames = {
+                'en': 'English',
+                'hi': 'हिन्दी (Hindi)',
+                'gu': 'ગુજરાતી (Gujarati)'
+            };
+
+            // Determine risk color
+            const riskLevel = riskAssessment.risk_level;
+            let riskColor = 'green';
+            if (riskLevel === 'High' || riskLevel === 'Critical') {
+                riskColor = 'red';
+            } else if (riskLevel === 'Medium') {
+                riskColor = 'orange';
+            }
+
+            // Build HTML
+            let html = '';
+
+            // Case and Language Info
+            html += `
+                <div class="card">
+                    <h2>Investigation Report</h2>
+                    <p class="case-info"><strong>Case:</strong> ${caseLabel}</p>
+                    <p class="language-indicator">
+                        <strong>Language:</strong> ${languageNames[language] || language}
+                    </p>
+                </div>
+            `;
+
+            // Threat Summary
+            if (execSummary.threat_summary) {
+                html += `
+                    <div class="card">
+                        <h2>⚠️ Threat Summary</h2>
+                        <p class="threat-summary">${execSummary.threat_summary}</p>
+                    </div>
+                `;
+            }
+
+            // Risk Assessment
+            html += `
+                <div class="card">
+                    <h2>🟥 Risk Assessment</h2>
+                    <div class="risk-level risk-${riskColor}">
+                        ${riskLevel}
+                    </div>
+                    <div class="risk-details">
+                        <p><strong>Risk Score:</strong> ${riskAssessment.risk_score}/100</p>
+                        <p><strong>Confidence:</strong> ${riskAssessment.confidence}%</p>
+                        <p><strong>Reasoning:</strong> ${riskAssessment.reasoning}</p>
+                    </div>
+                </div>
+            `;
+
+            // Key Findings
+            if (execSummary.key_findings && execSummary.key_findings.length > 0) {
+                html += `
+                    <div class="card">
+                        <h2>🔍 Key Findings</h2>
+                        <ul class="findings-list">
+                `;
+                execSummary.key_findings.forEach(finding => {
+                    html += `
+                        <li>
+                            ${finding.finding}
+                            <span class="confidence">(Confidence: ${finding.confidence}%)</span>
+                        </li>
+                    `;
+                });
+                html += `
+                        </ul>
+                        <p class="small-text">Total artefacts analyzed: ${execSummary.total_artefacts_analyzed}</p>
+                    </div>
+                `;
+            }
+
+            // Timeline Narrative
+            if (timeline.narrative) {
+                html += `
+                    <div class="card">
+                        <h2>🕒 Timeline Narrative</h2>
+                        <p class="narrative">${timeline.narrative}</p>
+                `;
+
+                if (timeline.patterns && timeline.patterns.length > 0) {
+                    html += `
+                        <h3>Detected Patterns:</h3>
+                        <ul class="patterns-list">
+                    `;
+                    timeline.patterns.forEach(pattern => {
+                        html += `<li>${pattern}</li>`;
+                    });
+                    html += `</ul>`;
+                }
+
+                html += `</div>`;
+            }
+
+            // Safety Recommendations
+            if (recommendations.recommendations && recommendations.recommendations.length > 0) {
+                html += `
+                    <div class="card">
+                        <h2>🛡️ Safety Recommendations</h2>
+                        <p class="priority-badge priority-${recommendations.priority.toLowerCase()}">
+                            Priority: ${recommendations.priority}
+                        </p>
+                `;
+
+                recommendations.recommendations.forEach((rec, index) => {
+                    html += `
+                        <div class="recommendation">
+                            <h3>${index + 1}. [${rec.category}] ${rec.action}</h3>
+                            <p><strong>Priority:</strong> ${rec.priority}</p>
+                            <p><strong>Reasoning:</strong> ${rec.reasoning}</p>
+                    `;
+
+                    if (rec.steps && rec.steps.length > 0) {
+                        html += `<p><strong>Steps:</strong></p><ul>`;
+                        rec.steps.forEach(step => {
+                            html += `<li>${step}</li>`;
+                        });
+                        html += `</ul>`;
+                    }
+
+                    html += `</div>`;
+                });
+
+                if (recommendations.disclaimer) {
+                    html += `
+                        <div class="disclaimer">
+                            <p><strong>Disclaimer:</strong> ${recommendations.disclaimer}</p>
+                        </div>
+                    `;
+                }
+
+                html += `</div>`;
+            }
+
+            // Metadata
+            if (report.metadata) {
+                html += `
+                    <div class="card metadata">
+                        <h3>Processing Metadata</h3>
+                        <p><strong>Processing Time:</strong> ${report.metadata.processing_time_seconds || 0} seconds</p>
+                        <p><strong>Average Confidence:</strong> ${report.metadata.confidence_average}%</p>
+                        <p><strong>Components:</strong> ${report.metadata.components_executed.join(', ')}</p>
+                    </div>
+                `;
+            }
+
+            document.getElementById('reportContent').innerHTML = html;
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,10 @@
+# FOR LIVE DEBUGGING & DEMO PURPOSES ONLY – NOT SYSTEM EXTRACTION
+# This file simulates limited call artifacts for pipeline validation
+# Does NOT bypass Android security or access protected databases
+
+timestamp,direction,number,duration
+2026-02-01 09:15:23,incoming,+91XXXXXXXXXX,45
+2026-02-01 11:32:45,outgoing,+91YYYYYYYYYY,128
+2026-02-01 14:20:12,incoming,+91XXXXXXXXXX,23
+2026-02-01 16:45:33,outgoing,+91ZZZZZZZZZZ,67
+2026-02-01 18:22:10,incoming,+91YYYYYYYYYY,89

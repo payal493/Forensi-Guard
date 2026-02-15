@@ -1,0 +1,32 @@
+[
+  {
+    "timestamp": "2026-02-01 09:15:23",
+    "source": "CALL",
+    "type": "incoming",
+    "details": "Incoming call from +91XXXXXXXXXX - Duration: 45s"
+  },
+  {
+    "timestamp": "2026-02-01 11:32:45",
+    "source": "CALL",
+    "type": "outgoing",
+    "details": "Outgoing call to +91YYYYYYYYYY - Duration: 2m 8s"
+  },
+  {
+    "timestamp": "2026-02-01 14:20:12",
+    "source": "CALL",
+    "type": "incoming",
+    "details": "Incoming call from +91XXXXXXXXXX - Duration: 23s"
+  },
+  {
+    "timestamp": "2026-02-01 16:45:33",
+    "source": "CALL",
+    "type": "outgoing",
+    "details": "Outgoing call to +91ZZZZZZZZZZ - Duration: 1m 7s"
+  },
+  {
+    "timestamp": "2026-02-01 18:22:10",
+    "source": "CALL",
+    "type": "incoming",
+    "details": "Incoming call from +91YYYYYYYYYY - Duration: 1m 29s"
+  }
+]

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Mobile Forensics Investigation Tool
 
 A secure, rule-based mobile forensics investigation tool for 24-hour hackathon development.
@@ -168,3 +169,7 @@ python app.py
 - Python 3.7+
 - Flask (for web UI)
 - Standard library modules only (no external dependencies for core functionality)
+=======
+# Shecodes
+It takes mobile phone data files, keeps them safe, analyzes suspicious behaviour, reconstructs a timeline, and generates a forensic investigation report.”
+>>>>>>> e17941af79e2b25546da86424330daa32d933874

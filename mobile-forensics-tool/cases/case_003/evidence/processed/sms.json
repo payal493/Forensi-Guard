@@ -1,0 +1,32 @@
+[
+  {
+    "timestamp": "2026-02-01 09:16:05",
+    "source": "SMS",
+    "type": "incoming",
+    "details": "Message from +91XXXXXXXXXX: Meeting confirmed for 10 AM"
+  },
+  {
+    "timestamp": "2026-02-01 11:33:12",
+    "source": "SMS",
+    "type": "outgoing",
+    "details": "Message to +91YYYYYYYYYY: Running late, will be there in 15 mins"
+  },
+  {
+    "timestamp": "2026-02-01 14:21:45",
+    "source": "SMS",
+    "type": "incoming",
+    "details": "Message from +91XXXXXXXXXX: Documents sent via email"
+  },
+  {
+    "timestamp": "2026-02-01 16:46:02",
+    "source": "SMS",
+    "type": "outgoing",
+    "details": "Message to +91ZZZZZZZZZZ: Thanks for the update"
+  },
+  {
+    "timestamp": "2026-02-01 18:22:45",
+    "source": "SMS",
+    "type": "incoming",
+    "details": "Message from +91YYYYYYYYYY: See you tomorrow"
+  }
+]

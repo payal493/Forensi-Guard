@@ -1,0 +1,25 @@
+{
+  "integration_note": "Live debug communication artifacts for pipeline validation",
+  "analysis_timestamp": "2026-02-01 03:49:57",
+  "case_id": "case_live_001",
+  "suspicious_behaviour": [
+    {
+      "pattern": "High call frequency",
+      "description": "Multiple calls detected (5 calls)",
+      "risk_level": "low",
+      "evidence_references": [
+        "calls.json"
+      ]
+    },
+    {
+      "pattern": "High message frequency",
+      "description": "Multiple messages detected (5 messages)",
+      "risk_level": "low",
+      "evidence_references": [
+        "sms.json"
+      ]
+    }
+  ],
+  "malware_indicators": [],
+  "timestamp_anomalies": []
+}

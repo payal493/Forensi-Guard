@@ -1,0 +1,534 @@
+{
+  "case_id": "case_demo_001",
+  "language": "en",
+  "generated_at": "2026-02-13T23:17:14.320829",
+  "sections": {
+    "executive_summary": {
+      "threat_summary": "High-risk threat: Suspicious location tracking activity detected with privacy implications.",
+      "risk_assessment": {
+        "risk_level": "High",
+        "risk_score": 83.5,
+        "confidence": 77.5,
+        "reasoning": "Analysis of 5 finding(s) indicates significant risk. Multiple suspicious indicators suggest potential security concerns."
+      },
+      "key_findings": [
+        {
+          "finding": "The app com.tracker.stealth has permission to access your precise GPS location. This allows the app to track your exact coordinates.",
+          "confidence": 87.0
+        },
+        {
+          "finding": "The app com.tracker.stealth has permission to access your precise GPS location. This allows the app to track your exact coordinates.",
+          "confidence": 87.0
+        },
+        {
+          "finding": "The app com.tracker.stealth has permission to access your contact list. This includes names, phone numbers, and email addresses stored on your device.",
+          "confidence": 84.0
+        },
+        {
+          "finding": "SMS from sender +91XXXXXXXXXX at 2026-02-11T11:17:14.251004 contains authentication-related content (passwords, OTP codes, or verification tokens). This message type is commonly targeted in phishing or account takeover attempts.",
+          "confidence": 85.0
+        },
+        {
+          "finding": "Call log entry: incoming call with number +91XXXXXXXXXX at 2026-02-12T01:17:14.251004. Duration: 45 second(s).",
+          "confidence": 88.0
+        }
+      ],
+      "total_artefacts_analyzed": 12,
+      "ai_generated": true
+    },
+    "evidence_interpretation": {
+      "artefacts": [
+        {
+          "interpretation_id": "b34329d6-4b0b-4e08-b7ab-1d97bdc87943",
+          "original": {
+            "timestamp": "2026-02-11T01:17:14.251004",
+            "source": "app",
+            "details": "Suspicious tracking app installed: com.tracker.stealth",
+            "metadata": {
+              "app": "com.tracker.stealth",
+              "package_name": "com.tracker.stealth",
+              "permissions": [
+                "ACCESS_FINE_LOCATION",
+                "READ_CONTACTS",
+                "READ_SMS"
+              ]
+            }
+          },
+          "interpretation": "The app com.tracker.stealth has permission to access your precise GPS location. This allows the app to track your exact coordinates.",
+          "confidence": 87.0,
+          "reasoning": "Location permission detected: ['ACCESS_FINE_LOCATION', 'READ_CONTACTS', 'READ_SMS']. This is a privacy-sensitive permission that enables location tracking.",
+          "alternatives": [
+            {
+              "interpretation": "The app com.tracker.stealth may use location for legitimate features like navigation, weather, or local services.",
+              "confidence": 72.0
+            }
+          ],
+          "artefact_type": "app",
+          "ai_generated": true,
+          "generated_at": "2026-02-13T23:17:14.282367"
+        },
+        {
+          "interpretation_id": "1e04e957-e1bd-4565-9df3-97929429f172",
+          "original": {
+            "timestamp": "2026-02-11T01:22:14.251004",
+            "source": "app",
+            "details": "Location permission granted to tracking app",
+            "metadata": {
+              "app": "com.tracker.stealth",
+              "permission": "ACCESS_FINE_LOCATION",
+              "granted": true
+            }
+          },
+          "interpretation": "The app com.tracker.stealth has permission to access your precise GPS location. This allows the app to track your exact coordinates.",
+          "confidence": 87.0,
+          "reasoning": "Location permission detected: ACCESS_FINE_LOCATION. This is a privacy-sensitive permission that enables location tracking.",
+          "alternatives": [
+            {
+              "interpretation": "The app com.tracker.stealth may use location for legitimate features like navigation, weather, or local services.",
+              "confidence": 72.0
+            }
+          ],
+          "artefact_type": "app",
+          "ai_generated": true,
+          "generated_at": "2026-02-13T23:17:14.282782"
+        },
+        {
+          "interpretation_id": "f7a14638-9fdd-4070-ae35-47465c44ce38",
+          "original": {
+            "timestamp": "2026-02-11T01:24:14.251004",
+            "source": "app",
+            "details": "Contacts permission granted to tracking app",
+            "metadata": {
+              "app": "com.tracker.stealth",
+              "permission": "READ_CONTACTS",
+              "granted": true
+            }
+          },
+          "interpretation": "The app com.tracker.stealth has permission to access your contact list. This includes names, phone numbers, and email addresses stored on your device.",
+          "confidence": 84.0,
+          "reasoning": "Contacts permission detected: READ_CONTACTS. This allows the app to read your entire contact database.",
+          "alternatives": [],
+          "artefact_type": "app",
+          "ai_generated": true,
+          "generated_at": "2026-02-13T23:17:14.283208"
+        },
+        {
+          "interpretation_id": "ec3eeb19-bacf-4e9d-a659-8b6fae5b9ae3",
+          "original": {
+            "timestamp": "2026-02-11T11:17:14.251004",
+            "source": "sms",
+            "details": "SMS received from unknown number",
+            "metadata": {
+              "sender": "+91XXXXXXXXXX",
+              "address": "+91XXXXXXXXXX",
+              "content": "Your verification code is 123456",
+              "body": "Your verification code is 123456"
+            }
+          },
+          "interpretation": "SMS from sender +91XXXXXXXXXX at 2026-02-11T11:17:14.251004 contains authentication-related content (passwords, OTP codes, or verification tokens). This message type is commonly targeted in phishing or account takeover attempts.",
+          "confidence": 85.0,
+          "reasoning": "Message from +91XXXXXXXXXX contains security-sensitive keywords indicating authentication data.",
+          "alternatives": [],
+          "artefact_type": "sms",
+          "ai_generated": true,
+          "generated_at": "2026-02-13T23:17:14.283613"
+        },
+        {
+          "interpretation_id": "1f37af94-309f-490e-9a87-6576accef1b1",
+          "original": {
+            "timestamp": "2026-02-12T01:17:14.251004",
+            "source": "call",
+            "details": "Incoming call from unknown number",
+            "metadata": {
+              "number": "+91XXXXXXXXXX",
+              "address": "+91XXXXXXXXXX",
+              "duration": 45,
+              "type": "incoming"
+            }
+          },
+          "interpretation": "Call log entry: incoming call with number +91XXXXXXXXXX at 2026-02-12T01:17:14.251004. Duration: 45 second(s).",
+          "confidence": 88.0,
+          "reasoning": "Call record extracted from device call log. Number: +91XXXXXXXXXX, Type: incoming, Duration: 45s.",
+          "alternatives": [],
+          "artefact_type": "call",
+          "ai_generated": true,
+          "generated_at": "2026-02-13T23:17:14.284020"
+        },
+        {
+          "interpretation_id": "d7fd64e9-0ebc-4521-b0aa-cfbefba222a8",
+          "original": {
+            "timestamp": "2026-02-12T13:17:14.251004",
+            "source": "media",
+            "details": "Photo taken with location data",
+            "metadata": {
+              "filename": "IMG_20240115_140000.jpg",
+              "name": "IMG_20240115_140000.jpg",
+              "location": {
+                "latitude": 23.1234,
+                "longitude": 72.5678
+              }
+            }
+          },
+          "interpretation": "Media file 'IMG_20240115_140000.jpg' captured at 2026-02-12T13:17:14.251004 contains embedded GPS metadata. Coordinates: 23.1234, 72.5678. This indicates the precise location where the photo or video was captured.",
+          "confidence": 85.0,
+          "reasoning": "Media file contains GPS EXIF metadata with coordinates (23.1234, 72.5678).",
+          "alternatives": [],
+          "artefact_type": "media",
+          "ai_generated": true,
+          "generated_at": "2026-02-13T23:17:14.284620"
+        },
+        {
+          "interpretation_id": "656688a5-e318-4fb8-bde2-b716e2c1d53b",
+          "original": {
+            "timestamp": "2026-02-13T00:17:14.251004",
+            "source": "app",
+            "details": "Background location tracking detected",
+            "metadata": {
+              "app": "com.tracker.stealth",
+              "activity": "background_location_access"
+            }
+          },
+          "interpretation": "The app com.tracker.stealth is installed on the device.",
+          "confidence": 75.0,
+          "reasoning": "App installation detected in forensic analysis.",
+          "alternatives": [],
+          "artefact_type": "app",
+          "ai_generated": true,
+          "generated_at": "2026-02-13T23:17:14.287057"
+        },
+        {
+          "interpretation_id": "e7c31061-9eb7-4325-b973-975bf31f2dc3",
+          "original": {
+            "type": "suspicious_behaviour",
+            "description": "App with hidden icon detected",
+            "severity": "high",
+            "details": {
+              "app": "com.tracker.stealth",
+              "reason": "App launcher icon is hidden from app drawer"
+            }
+          },
+          "interpretation": "Automated forensic analysis detected a high-risk security indicator: App with hidden icon detected. This pattern was identified through rule-based anomaly detection.",
+          "confidence": 75.0,
+          "reasoning": "Finding type: suspicious_behaviour. Severity: high.",
+          "alternatives": [
+            {
+              "interpretation": "This pattern may represent legitimate application behavior depending on user context and device usage patterns.",
+              "confidence": 55.0
+            }
+          ],
+          "artefact_type": "finding",
+          "ai_generated": true,
+          "generated_at": "2026-02-13T23:17:14.287795"
+        },
+        {
+          "interpretation_id": "bd90aa2a-8b01-4d3c-8150-d21c2c9fd58b",
+          "original": {
+            "type": "suspicious_behaviour",
+            "description": "Excessive background location access",
+            "severity": "high",
+            "details": {
+              "app": "com.tracker.stealth",
+              "frequency": "Every 5 minutes",
+              "duration": "48 hours"
+            }
+          },
+          "interpretation": "Permission analysis flagged a high-risk security indicator: Excessive background location access. This may indicate excessive or suspicious access to sensitive device resources.",
+          "confidence": 75.0,
+          "reasoning": "Finding type: suspicious_behaviour. Severity: high.",
+          "alternatives": [
+            {
+              "interpretation": "This pattern may represent legitimate application behavior depending on user context and device usage patterns.",
+              "confidence": 55.0
+            }
+          ],
+          "artefact_type": "finding",
+          "ai_generated": true,
+          "generated_at": "2026-02-13T23:17:14.288403"
+        },
+        {
+          "interpretation_id": "3906a254-334a-4d63-9197-d52436216112",
+          "original": {
+            "type": "malware",
+            "description": "App matches stalkerware signature",
+            "severity": "critical",
+            "details": {
+              "app": "com.tracker.stealth",
+              "signature_match": "Known stalkerware pattern",
+              "confidence": 0.85
+            }
+          },
+          "interpretation": "Forensic analysis identified a critical security threat: App matches stalkerware signature. This may indicate the presence of malicious software or unauthorized surveillance activity.",
+          "confidence": 75.0,
+          "reasoning": "Finding type: malware. Severity: critical.",
+          "alternatives": [
+            {
+              "interpretation": "This pattern may represent legitimate application behavior depending on user context and device usage patterns.",
+              "confidence": 55.0
+            }
+          ],
+          "artefact_type": "finding",
+          "ai_generated": true,
+          "generated_at": "2026-02-13T23:17:14.288982"
+        },
+        {
+          "interpretation_id": "5752738d-c9be-49a8-acdc-79fa6340655a",
+          "original": {
+            "type": "timestamp_anomaly",
+            "description": "Nighttime device activity detected",
+            "severity": "medium",
+            "details": {
+              "time_range": "01:00 - 03:00 AM",
+              "activity": "Background app activity"
+            }
+          },
+          "interpretation": "Behavioral analysis detected a moderate-risk indicator: Nighttime device activity detected. This pattern deviates from typical device usage and may warrant further investigation.",
+          "confidence": 75.0,
+          "reasoning": "Finding type: timestamp_anomaly. Severity: medium.",
+          "alternatives": [
+            {
+              "interpretation": "This pattern may represent legitimate application behavior depending on user context and device usage patterns.",
+              "confidence": 55.0
+            }
+          ],
+          "artefact_type": "finding",
+          "ai_generated": true,
+          "generated_at": "2026-02-13T23:17:14.295931"
+        },
+        {
+          "interpretation_id": "2d6bd447-c5a4-49f4-9d8b-35b8a65bd13b",
+          "original": {
+            "type": "permission",
+            "description": "App has excessive permissions for its category",
+            "severity": "high",
+            "details": {
+              "app": "com.tracker.stealth",
+              "category": "Utility",
+              "excessive_permissions": [
+                "ACCESS_FINE_LOCATION",
+                "READ_CONTACTS",
+                "READ_SMS"
+              ]
+            }
+          },
+          "interpretation": "Permission analysis flagged a high-risk security indicator: App has excessive permissions for its category. This may indicate excessive or suspicious access to sensitive device resources.",
+          "confidence": 75.0,
+          "reasoning": "Finding type: permission. Severity: high.",
+          "alternatives": [
+            {
+              "interpretation": "This pattern may represent legitimate application behavior depending on user context and device usage patterns.",
+              "confidence": 55.0
+            }
+          ],
+          "artefact_type": "finding",
+          "ai_generated": true,
+          "generated_at": "2026-02-13T23:17:14.296667"
+        }
+      ],
+      "summary": {
+        "total_count": 12,
+        "high_confidence_count": 6,
+        "medium_confidence_count": 6,
+        "low_confidence_count": 0,
+        "average_confidence": 80.5
+      },
+      "ai_generated": true
+    },
+    "timeline_narrative": {
+      "narrative": "The forensic analysis examined device activity from 2026-02-11T01:17:14.251004 to 2026-02-13T00:17:14.251004. During this period, 7 events were recorded, of which 6 were identified as potentially significant for the investigation.\n\nKey events in chronological order:\n1. On February 11 at 01:17 AM, Suspicious tracking app installed: com.tracker.stealth. (Significance: High)\n2. On February 11 at 01:22 AM, Location permission granted to tracking app. (Significance: Medium)\n3. On February 11 at 01:24 AM, Contacts permission granted to tracking app. (Significance: Medium)\n4. On February 12 at 01:17 AM, Incoming call from unknown number. (Significance: Medium)\n5. On February 12 at 01:17 PM, Photo taken with location data. (Significance: Medium)\n\nSuspicious patterns identified:\n• Multiple events occurred in close succession\n• App installation followed by permission requests\n• Location tracking activity detected\n• Nighttime device activity detected\n\nThe timeline reveals 6 significant event(s) that warrant attention. These events, combined with the detected patterns, provide important context for understanding device activity during the investigation period.",
+      "key_events": [
+        {
+          "timestamp": "2026-02-11T01:17:14.251004",
+          "description": "Suspicious tracking app installed: com.tracker.stealth",
+          "source": "app",
+          "significance": "High",
+          "original_event": {
+            "timestamp": "2026-02-11T01:17:14.251004",
+            "source": "app",
+            "details": "Suspicious tracking app installed: com.tracker.stealth",
+            "metadata": {
+              "app": "com.tracker.stealth",
+              "package_name": "com.tracker.stealth",
+              "permissions": [
+                "ACCESS_FINE_LOCATION",
+                "READ_CONTACTS",
+                "READ_SMS"
+              ]
+            }
+          }
+        },
+        {
+          "timestamp": "2026-02-11T01:22:14.251004",
+          "description": "Location permission granted to tracking app",
+          "source": "app",
+          "significance": "Medium",
+          "original_event": {
+            "timestamp": "2026-02-11T01:22:14.251004",
+            "source": "app",
+            "details": "Location permission granted to tracking app",
+            "metadata": {
+              "app": "com.tracker.stealth",
+              "permission": "ACCESS_FINE_LOCATION",
+              "granted": true
+            }
+          }
+        },
+        {
+          "timestamp": "2026-02-11T01:24:14.251004",
+          "description": "Contacts permission granted to tracking app",
+          "source": "app",
+          "significance": "Medium",
+          "original_event": {
+            "timestamp": "2026-02-11T01:24:14.251004",
+            "source": "app",
+            "details": "Contacts permission granted to tracking app",
+            "metadata": {
+              "app": "com.tracker.stealth",
+              "permission": "READ_CONTACTS",
+              "granted": true
+            }
+          }
+        },
+        {
+          "timestamp": "2026-02-12T01:17:14.251004",
+          "description": "Incoming call from unknown number",
+          "source": "call",
+          "significance": "Medium",
+          "original_event": {
+            "timestamp": "2026-02-12T01:17:14.251004",
+            "source": "call",
+            "details": "Incoming call from unknown number",
+            "metadata": {
+              "number": "+91XXXXXXXXXX",
+              "address": "+91XXXXXXXXXX",
+              "duration": 45,
+              "type": "incoming"
+            }
+          }
+        },
+        {
+          "timestamp": "2026-02-12T13:17:14.251004",
+          "description": "Photo taken with location data",
+          "source": "media",
+          "significance": "Medium",
+          "original_event": {
+            "timestamp": "2026-02-12T13:17:14.251004",
+            "source": "media",
+            "details": "Photo taken with location data",
+            "metadata": {
+              "filename": "IMG_20240115_140000.jpg",
+              "name": "IMG_20240115_140000.jpg",
+              "location": {
+                "latitude": 23.1234,
+                "longitude": 72.5678
+              }
+            }
+          }
+        },
+        {
+          "timestamp": "2026-02-13T00:17:14.251004",
+          "description": "Background location tracking detected",
+          "source": "app",
+          "significance": "Medium",
+          "original_event": {
+            "timestamp": "2026-02-13T00:17:14.251004",
+            "source": "app",
+            "details": "Background location tracking detected",
+            "metadata": {
+              "app": "com.tracker.stealth",
+              "activity": "background_location_access"
+            }
+          }
+        }
+      ],
+      "patterns": [
+        "Multiple events occurred in close succession",
+        "App installation followed by permission requests",
+        "Location tracking activity detected",
+        "Nighttime device activity detected"
+      ],
+      "gaps": [],
+      "confidence": 79.0,
+      "event_count": 7,
+      "ai_generated": true
+    },
+    "safety_recommendations": {
+      "recommendations": [
+        {
+          "category": "Immediate Action",
+          "priority": "Urgent",
+          "action": "Review and disable suspicious applications immediately",
+          "reasoning": "High-risk indicators suggest potential malicious activity",
+          "steps": [
+            "Go to Settings > Apps on your device",
+            "Review recently installed applications",
+            "Disable or uninstall any unfamiliar apps",
+            "Pay special attention to apps with excessive permissions"
+          ]
+        },
+        {
+          "category": "Professional Help",
+          "priority": "High",
+          "action": "Contact local cyber harassment support services or law enforcement",
+          "reasoning": "The severity of findings suggests professional intervention may be needed",
+          "steps": [
+            "Document all suspicious activities",
+            "Preserve evidence by not deleting suspicious apps",
+            "Contact local cyber crime unit or support organization",
+            "Consider consulting with a cybersecurity professional"
+          ]
+        },
+        {
+          "category": "Evidence Preservation",
+          "priority": "High",
+          "action": "Preserve device evidence for potential legal proceedings",
+          "reasoning": "Evidence integrity is crucial for any future legal action",
+          "steps": [
+            "Do not factory reset your device",
+            "Keep the device powered on and charged",
+            "Document any suspicious messages or calls",
+            "Save this forensic report securely"
+          ]
+        },
+        {
+          "category": "Evidence Preservation",
+          "priority": "Medium",
+          "action": "Keep a copy of this forensic report",
+          "reasoning": "Documentation may be useful for future reference or legal purposes",
+          "steps": [
+            "Save this report in a secure location",
+            "Consider keeping both digital and printed copies",
+            "Do not share the report publicly or on social media"
+          ]
+        },
+        {
+          "category": "Professional Help",
+          "priority": "Low",
+          "action": "Consider consulting with cybersecurity or legal professionals if concerns persist",
+          "reasoning": "Professional guidance can provide additional peace of mind",
+          "steps": [
+            "Research local cybersecurity consultants",
+            "Contact legal aid organizations if needed",
+            "Reach out to cyber harassment support groups"
+          ]
+        }
+      ],
+      "priority": "High",
+      "disclaimer": "ADVISORY NOTICE: These recommendations are advisory only and generated by AI based on forensic analysis. They are not authoritative legal or security advice. For legal concerns, safety issues, or professional guidance, please consult with law enforcement, legal professionals, or certified cybersecurity experts. This system does not modify device data or forensic evidence.",
+      "ai_generated": true
+    }
+  },
+  "metadata": {
+    "ai_models_used": [
+      "placeholder-model"
+    ],
+    "processing_time_seconds": 0.056788,
+    "confidence_average": 80.5,
+    "components_executed": [
+      "interpretations",
+      "risk_assessment",
+      "timeline_narrative",
+      "recommendations"
+    ],
+    "report_version": "1.0"
+  }
+}

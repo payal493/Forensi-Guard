@@ -37,6 +37,7 @@
         const reportLanguage = sessionStorage.getItem('report_language') || 'en';
         const caseName = sessionStorage.getItem('case_name') || 'Unknown';
         const caseLabel = sessionStorage.getItem('case_label') || caseName;
+        const isDemo = caseName === 'demo_case';
 
         if (!reportData) {
             document.getElementById('reportContent').innerHTML = `
@@ -83,7 +84,11 @@
             html += `
                 <div class="card">
                     <h2>Investigation Report</h2>
-                    <p class="case-info"><strong>Case:</strong> ${caseLabel}</p>
+                    <p class="case-info">
+                        <strong>Case:</strong> ${caseLabel}
+                        ${isDemo ? '<span class="demo-badge">DEMO CASE</span>' : ''}
+                    </p>
+                    ${isDemo ? '<p style="color: #856404; background: #fff3cd; padding: 10px; border-radius: 6px; margin-top: 10px;"><strong>ℹ️ Note:</strong> This is a demonstration case showcasing high-risk surveillance detection capabilities. No real user data is involved.</p>' : ''}
                     <p class="language-indicator">
                         <strong>Language:</strong> ${languageNames[language] || language}
                     </p>

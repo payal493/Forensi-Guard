@@ -29,6 +29,7 @@ CASE_DIR = os.path.join(os.path.dirname(__file__), "mobile-forensics-tool", "cas
 
 # Friendly case labels (optional)
 CASE_LABELS = {
+    "demo_case": "🔴 Demo Case - Suspicious Surveillance Activity (High Risk)",
     "case_001": "Case 001 - General Investigation",
     "case_002": "Case 002 - Suspicious Activity",
     "case_003": "Case 003 - Device Analysis",
@@ -44,6 +45,9 @@ def get_available_cases():
         list: Sorted list of case folder names that have valid forensic reports
     """
     cases = []
+    
+    # Always add demo case first
+    cases.append("demo_case")
     
     if not os.path.exists(CASE_DIR):
         print(f"⚠️  Warning: Case directory not found: {CASE_DIR}")
@@ -63,7 +67,7 @@ def get_available_cases():
             if os.path.exists(report_path):
                 cases.append(case)
         
-        return sorted(cases)
+        return cases
     
     except Exception as e:
         print(f"⚠️  Error scanning cases: {e}")
@@ -260,30 +264,50 @@ def analyze():
         if language not in ['en', 'hi', 'gu']:
             language = 'en'
         
-        # Build path to forensic report
-        report_path = os.path.join(
-            CASE_DIR,
-            selected_case,
-            "reports",
-            "forensic_report.json"
-        )
+        # Handle demo case specially
+        if selected_case == "demo_case":
+            # Load demo case data directly
+            demo_case_path = os.path.join(os.path.dirname(__file__), "demo_case.json")
+            
+            if not os.path.exists(demo_case_path):
+                return jsonify({
+                    "status": "error",
+                    "message": "Demo case file not found"
+                }), 404
+            
+            with open(demo_case_path, 'r', encoding='utf-8') as f:
+                forensic_data = json.load(f)
+            
+            case_id = forensic_data.get("case_id", "demo_case_001")
+            case_label = CASE_LABELS.get("demo_case", "Demo Case")
         
-        # Check if report exists
-        if not os.path.exists(report_path):
-            return jsonify({
-                "status": "error",
-                "message": f"Forensic report not found for case: {selected_case}"
-            }), 404
-        
-        # Load forensic data
-        with open(report_path, 'r', encoding='utf-8') as f:
-            forensic_report = json.load(f)
-        
-        # Transform forensic report to AI pipeline expected format
-        forensic_data = transform_forensic_report_to_ai_format(forensic_report, selected_case)
-        
-        # Extract case ID
-        case_id = forensic_data.get("case_id", selected_case)
+        else:
+            # Handle regular forensic cases
+            # Build path to forensic report
+            report_path = os.path.join(
+                CASE_DIR,
+                selected_case,
+                "reports",
+                "forensic_report.json"
+            )
+            
+            # Check if report exists
+            if not os.path.exists(report_path):
+                return jsonify({
+                    "status": "error",
+                    "message": f"Forensic report not found for case: {selected_case}"
+                }), 404
+            
+            # Load forensic data
+            with open(report_path, 'r', encoding='utf-8') as f:
+                forensic_report = json.load(f)
+            
+            # Transform forensic report to AI pipeline expected format
+            forensic_data = transform_forensic_report_to_ai_format(forensic_report, selected_case)
+            
+            # Extract case ID
+            case_id = forensic_data.get("case_id", selected_case)
+            case_label = CASE_LABELS.get(selected_case, selected_case)
         
         # Run AI pipeline (always in English first)
         report = run_ai_pipeline(case_id, forensic_data, language="en")
@@ -296,16 +320,14 @@ def analyze():
                 print(f"⚠️  Translation failed: {e}. Falling back to English.")
                 language = 'en'  # Fallback to English
         
-        # Get case label
-        case_label = CASE_LABELS.get(selected_case, selected_case)
-        
         # Return success response
         return jsonify({
             "status": "success",
             "report": report,
             "language": language,
             "case_name": selected_case,
-            "case_label": case_label
+            "case_label": case_label,
+            "is_demo": selected_case == "demo_case"
         })
         
     except FileNotFoundError as e:

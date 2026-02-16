@@ -465,3 +465,65 @@ footer p {
     font-weight: 600;
     margin-bottom: 10px;
 }
+
+/* Demo Case Badge */
+.demo-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    background: #f8d7da;
+    color: #721c24;
+    border-radius: 12px;
+    font-size: 0.85em;
+    font-weight: 600;
+    margin-left: 8px;
+}
+
+/* Demo Case Tooltip */
+.demo-tooltip {
+    position: relative;
+    display: inline-block;
+    margin-left: 5px;
+    cursor: help;
+}
+
+.demo-tooltip .tooltip-text {
+    visibility: hidden;
+    width: 250px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 10px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -125px;
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 0.9em;
+}
+
+.demo-tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* High Risk Indicator */
+.high-risk-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: #f8d7da;
+    color: #721c24;
+    border-radius: 20px;
+    font-weight: 600;
+    margin-left: 10px;
+    font-size: 0.9em;
+}
+
+.high-risk-indicator::before {
+    content: "🔴";
+    font-size: 1.2em;
+}
